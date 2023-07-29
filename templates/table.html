@@ -1,0 +1,16 @@
+<table>
+    <tr>
+        <th>コード</th>
+        <th>買値</th>
+        <th>日付</th>
+        <th>売値</th>
+        <th>日付</th>
+    </tr>
+    {% for row in data %}
+        <tr>
+            {% for value in row %}
+                <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
