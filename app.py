@@ -17,7 +17,7 @@ def index():
     # result = cur.excute("SELECT * FROM mytable")
     # if result > 0:
     #     data = cur.fetchall()
-    return render_template('index.html', data=data)
+    return render_template('index.html')
 
 # @app.route('/submit', methods=['POST'])
 # def submit():
