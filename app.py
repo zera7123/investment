@@ -13,10 +13,10 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    cur = mysql.connection.cursor()
-    result = cur.excute("SELECT * FROM mytable WHERE status = 0")
-    if result > 0:
-        data = cur.fetchall()
+    # cur = mysql.connection.cursor()
+    # result = cur.excute("SELECT * FROM mytable WHERE status = 0")
+    # if result > 0:
+    #     data = cur.fetchall()
     return render_template('index.html', data=data)
 
 @app.route('/submit', methods=['POST'])

@@ -10,7 +10,7 @@
                 集計
             </button>
         </a>
-        <br><br>
+        {% comment %} <br><br>
         <table border="1">
             <tr>
                 <th>銘柄コード</th>
@@ -25,16 +25,30 @@
                 <td>{{ row[3] }}</td>
                 <td>{{ row[4] }}</td>
             </tr>
-            {% endfor %}        
+            {% endfor %}         {% endcomment %}
              
         </table>
 
 
-        {% comment %} <form action="/submit" method="post">
-            <label for="name">Name:</label>
+        <form action="/submit" method="post">
+            <label for="code">Code:</label>
+            <input type="text" id="code" name="code"><br><br>
+            <label for="name">銘柄名:</label>
             <input type="text" id="name" name="name"><br><br>
-            <label for="age">Age:</label>
-            <input type="text" id="age" name="age"><br><br>
+            <label for="b_price">買値:</label>
+            <input type="text" id="b_price" name="b_price"><br><br>
+            <label for="b_price">購入日付:</label>
+            <input type="text" id="b_data" name="b_data"><br><br>
+            <label for="b_price">購入理由:</label>
+            <input type="text" id="b_reson" name="b_reson"><br><br>
+            <label for="b_price">売値:</label>
+            <input type="text" id="s_price" name="s_price"><br><br>
+            <label for="b_price">売却日付:</label>
+            <input type="text" id="s_date" name="s_date"><br><br>
+            <label for="b_price">結果理由:</label>
+            <input type="text" id="s_reson" name="s_reson"><br><br>
+            <label for="b_price">ステータス:</label>
+            <input type="text" id="status" name="status"><br><br>
             <input type="submit" value="Submit">
         </form>
             <br>
@@ -42,7 +56,7 @@
             <button>
                 datapages
             </button>
-        </a> {% endcomment %}
+        </a> 
     
     
     </body>
