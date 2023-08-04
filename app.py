@@ -32,7 +32,7 @@ def submit():
         s_reason = request.form['s_reason']
         status = request.form['status']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,)", (code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status))
+        cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status))
         mysql.connection.commit()
         cur.close()
         return 'success'
