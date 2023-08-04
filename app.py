@@ -19,23 +19,23 @@ def index():
         data = cur.fetchall()
     return render_template('index.html', data=data)
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    if request.method == 'POST':
-        code = request.form['code']
-        name = request.form['name']
-        b_price = request.form['b_price']
-        b_date = request.form['b_date']
-        b_reason = request.form['b_reason']
-        s_price = request.form['s_price']
-        s_date = request.form['s_date']
-        s_reason = request.form['s_reason']
-        status = request.form['status']
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status))
-        mysql.connection.commit()
-        cur.close()
-        return 'success'
+# @app.route('/submit', methods=['POST'])
+# def submit():
+#     if request.method == 'POST':
+#         code = request.form['code']
+#         name = request.form['name']
+#         b_price = request.form['b_price']
+#         b_date = request.form['b_date']
+#         b_reason = request.form['b_reason']
+#         s_price = request.form['s_price']
+#         s_date = request.form['s_date']
+#         s_reason = request.form['s_reason']
+#         status = request.form['status']
+#         cur = mysql.connection.cursor()
+#         cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, s_price, s_date, s_reason, status))
+#         mysql.connection.commit()
+#         cur.close()
+#         return 'success'
 
 # @app.route('/data')
 # def data():
