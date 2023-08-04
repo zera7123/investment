@@ -10,8 +10,27 @@
                 集計
             </button>
         </a>
-        
-        <form action="/submit" method="post">
+        <br><br>
+        <table border="1">
+            <tr>
+                <th>銘柄コード</th>
+                <th>銘柄名</th>
+                <th>買値</th>
+                <th>購入日付</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+            </tr>
+            {% endfor %}        
+             
+        </table>
+
+
+        {% comment %} <form action="/submit" method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name"><br><br>
             <label for="age">Age:</label>
@@ -23,6 +42,8 @@
             <button>
                 datapages
             </button>
-        </a>
+        </a> {% endcomment %}
+    
+    
     </body>
 </html>
