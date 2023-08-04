@@ -14,7 +14,7 @@ mysql = MySQL(app)
 @app.route('/')
 def index():
     cur = mysql.connection.cursor()
-    result = cur.excute("SELECT * FROM mytable")
+    result = cur.execute("SELECT * FROM mytable")
     if result > 0:
         data = cur.fetchall()
     return render_template('index.html', data=data)
