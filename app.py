@@ -37,13 +37,13 @@ def submit():
         cur.close()
         return 'success'
 
-@app.route('/data')
-def data():
-    cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM mytable")
-    if result > 0:
-        data = cur.fetchall()
-        return render_template('data.html', data=data)
+# @app.route('/data')
+# def data():
+#     cur = mysql.connection.cursor()
+#     result = cur.execute("SELECT * FROM mytable")
+#     if result > 0:
+#         data = cur.fetchall()
+#         return render_template('data.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
