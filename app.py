@@ -18,6 +18,32 @@ def index():
     if result > 0:
         data = cur.fetchall()
     return render_template('index.html', data=data)
+@app.route('/new')
+def new():
+    return render_template('new.html')
+
+@app.route('/total')
+def total():
+    return render_template('total.html')
+
+@app.route('/result', method=['POST'])
+def result():
+    stock_code = request.form['stock_code']
+    stock_name = get_stock_name(stock_code)
+    start_date = datetime(2022, 1, 1)
+    end_date = datetime(2023, 1, 1)
+    df = pdr.get_data_yahoo(stock_code, start=start_date, end=end_date)
+    return render_template('result.html', stock_name=stock_name, data=df.to_html())
+
+def get_stock_name(stock_code):
+    url = f'https://finance.yahoo.com/quote/{stock_code}'
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    stock_name = soup.find('h1', class_='D(ib) Fz(18px)').text
+    return stock_name
 
 if __name__ == '__main__':
+    
+    
+    
     app.run(debug=True)
