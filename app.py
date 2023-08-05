@@ -27,34 +27,28 @@ def index():
 def new():
     return render_template('new.html')
 
-@app.route('/total')
-def total():
-    return render_template('total.html')
+# @app.route('/total')
+# def total():
+#     return render_template('total.html')
 
 @app.route('/result', methods=['POST'])
 def result():
     stock_code = request.form['stock_code']
-    stock_code = f'{stock_code}.T'
     stock_name = get_stock_name(stock_code)
-    start_date = datetime(2022, 1, 1)
-    end_date = datetime(2023, 1, 1)
-    df = pdr.get_data_yahoo(stock_code, start=start_date, end=end_date)
-    return render_template('result.html', stock_name=stock_name, data=df.to_html())
+    # start_date = datetime(2022, 1, 1)
+    # end_date = datetime(2023, 1, 1)
+    # df = pdr.get_data_yahoo(stock_code, start=start_date, end=end_date)
+    #return render_template('result.html', stock_name=stock_name, data=df.to_html())
+    return render_template('result.html', stock_name=stock_name)
 
 def get_stock_name(stock_code):
-    url = f'https://finance.yahoo.com/quote/{stock_code}'
+    url = f'https://kabutan.jp/stock/?code={stock_code}'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    element = soup.find('h1', class_='D(ib) Fz(18px)')
-    #stock_name = soup.find('h1', class_='D(ib) Fz(18px)').text
-    if element is None:
-        stock_name = 'Not found'
-    else:
-        stock_name = element.text
+    stock_name = soup.find('h3').text
     return stock_name
 
 if __name__ == '__main__':
-    
     
     
     app.run(debug=True)
