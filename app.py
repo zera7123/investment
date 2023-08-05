@@ -34,6 +34,7 @@ def total():
 @app.route('/result', methods=['POST'])
 def result():
     stock_code = request.form['stock_code']
+    stock_code = f'{stock_code}.T'
     stock_name = get_stock_name(stock_code)
     start_date = datetime(2022, 1, 1)
     end_date = datetime(2023, 1, 1)
