@@ -1,4 +1,8 @@
-from flask import Flask, request, render_template
+import requests
+from bs4 import BeautifulSoup
+import pandas_datareader as pdr
+from datetime import datetime
+from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
