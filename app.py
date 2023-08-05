@@ -30,7 +30,7 @@ def new():
 def total():
     return render_template('total.html')
 
-@app.route('/result', method=['POST'])
+@app.route('/result', methods=['POST'])
 def result():
     stock_code = request.form['stock_code']
     stock_name = get_stock_name(stock_code)
