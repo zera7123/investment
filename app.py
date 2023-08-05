@@ -17,11 +17,12 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM mytable")
-    if result > 0:
-        data = cur.fetchall()
-    return render_template('index.html', data=data)
+    # cur = mysql.connection.cursor()
+    # result = cur.execute("SELECT * FROM mytable")
+    # if result > 0:
+    #     data = cur.fetchall()
+    # return render_template('index.html', data=data)
+    return render_template('total.html')
 @app.route('/new')
 def new():
     return render_template('new.html')
@@ -43,7 +44,12 @@ def get_stock_name(stock_code):
     url = f'https://finance.yahoo.com/quote/{stock_code}'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    stock_name = soup.find('h1', class_='D(ib) Fz(18px)').text
+    element = soup.find('h1', class_='D(ib) Fz(18px)')
+    #stock_name = soup.find('h1', class_='D(ib) Fz(18px)').text
+    if element is None:
+        stock_name = 'Not found'
+    else:
+        stock_name = element.text
     return stock_name
 
 if __name__ == '__main__':
