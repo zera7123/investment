@@ -22,7 +22,7 @@ def index():
     # if result > 0:
     #     data = cur.fetchall()
     # return render_template('index.html', data=data)
-    return render_template('total.html')
+    return render_template('index.html')
 @app.route('/new')
 def new():
     return render_template('new.html')
@@ -39,7 +39,7 @@ def result():
     # end_date = datetime(2023, 1, 1)
     # df = pdr.get_data_yahoo(stock_code, start=start_date, end=end_date)
     #return render_template('result.html', stock_name=stock_name, data=df.to_html())
-    return render_template('result.html', stock_name=stock_name)
+    return render_template('new.html', stock_name=stock_name, stock_code=stock_code)
 
 def get_stock_name(stock_code):
     url = f'https://www.google.com/finance/quote/{stock_code}:TYO?hl=ja'
