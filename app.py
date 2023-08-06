@@ -42,10 +42,11 @@ def result():
     return render_template('result.html', stock_name=stock_name)
 
 def get_stock_name(stock_code):
-    url = f'https://site.financialmodelingprep.com/financial-summary/{stock_code}.T'
+    url = f'https://finance.yahoo.co.jp/quote/{stock_code}.T'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
-    stock_name = soup.find('h4').text
+    element = soup.find_all('h1')
+    stock_name = element[1].text
     return stock_name
 
 if __name__ == '__main__':
