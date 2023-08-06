@@ -24,7 +24,6 @@ def index():
     if result > 0:
         data = cur.fetchall()
     return render_template('index.html', data=data)
-    return render_template('index.html')
 
 @app.route('/new')
 def new():
@@ -42,8 +41,11 @@ def sign_up():
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, status))
         mysql.connection.commit()
+        result = cur.execute("SELECT * FROM mytable")
+        if result > 0:
+                data = cur.fetchall()
         cur.close()
-        return render_template('index.html')
+        return render_template('index.html', data=data)
 
 # @app.route('/total')
 # def total():
