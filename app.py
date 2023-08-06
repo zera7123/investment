@@ -25,9 +25,25 @@ def index():
     #     data = cur.fetchall()
     # return render_template('index.html', data=data)
     return render_template('index.html')
+
 @app.route('/new')
 def new():
     return render_template('new.html')
+
+@app.route('/sign_up', methods=['POST'])
+def sign_up():
+    if request.method == 'POST':
+        code = request.form['code']
+        name = request.form['name']
+        b_price = request.form['b_price']
+        b_date = request.form['b_date']
+        b_reason = request.form['b_reason']
+        status = 1
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, status))
+        mysql.connection.commit()
+        cur.close()
+        return render_template('index.html')
 
 # @app.route('/total')
 # def total():
