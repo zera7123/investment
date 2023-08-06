@@ -1,14 +1,14 @@
 <html>
-    <body>
-       
-        
-            <form action="/result" method="post">
-                <label for="stock_code">銘柄コード:</label>
-                <input type="text" id="stock_code" name="stock_code" value="{{stock_code}}">
-                <input type="submit" value="自動入力">
-            </form>
-            <br><br>
-            <form action="/submit" method="post">
+    <body>      
+        <form action="/result" method="post">
+            <label for="stock_code">銘柄コード:</label>
+            <input type="text" id="stock_code" name="stock_code" value="{{stock_code}}">
+            <input type="submit" value="自動入力">
+        </form>
+        <form action="/submit" method="post">
+            <label for="code">銘柄コード:</label>
+            <label id="code" name="code" value="{{stock_name}}"><br><br> 
+
             <label for="name">銘柄名:</label>
             <input type="text" id="name" name="name" value="{{stock_name}}"><br><br>
             
