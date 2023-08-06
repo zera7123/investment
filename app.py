@@ -77,7 +77,7 @@ def get_stock_price(stock_code):
     soup = BeautifulSoup(page.content, 'html.parser')
     element = soup.find('div', class_="YMlKec fxKbKc")
     element_text = element.get_text()
-    stock_price = element_text.replace('￥','')
+    stock_price = element_text.replace('￥','').replace(',','')
     return stock_price
 
 if __name__ == '__main__':
