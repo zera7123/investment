@@ -40,7 +40,7 @@ def index():
                     formatted_row.append(str(x))
         formatted_data.append(formatted_row)
         
-    return render_template('index.html', data=data)
+    return render_template('index.html', data=formatted_data)
 
 @app.route('/new')
 def new():
