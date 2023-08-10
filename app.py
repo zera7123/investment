@@ -21,29 +21,27 @@ mysql = MySQL(app)
 def index():
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM mytable")
-    if result > 0:
-        data = cur.fetchall()
+    data = cur.fetchall()
         
-        # データを整形
-        formatted_data = []
-        for row in data:
-            formatted_row = []
-            for i, x in enumerate(row):
-                if i == 3 or i == 5:
-                    if isinstance(x, float):
-                        # 小数点以下3桁まで表示
-                        formatted_row.append(f'{x:0>10.3f}')
-                    else:
-                        # 整数部分を6桁で表示
-                        formatted_row.append(f'{x:0>6}')
+     # データを整形
+    formatted_data = []
+    for row in data:
+        formatted_row = []
+        for i, x in enumerate(row):
+            if i == 3 or i == 5:
+                if isinstance(x, float):
+                    # 小数点以下3桁まで表示
+                    formatted_row.append(f'{x:0>10.3f}')
                 else:
-                    # その他の列はそのまま表示
-                    formatted_row.append(str(x))
-            formatted_data.append(formatted_row)
+                    # 整数部分を6桁で表示
+                    formatted_row.append(f'{x:0>6}')
+            else:
+                # その他の列はそのまま表示
+                formatted_row.append(str(x))
+        formatted_data.append(formatted_row)
         
-        return render_template('index.html', data=formatted_data)
-    else:
-        return 'No data found'
+    return render_template('index.html', data=formatted_data)
+
 @app.route('/new')
 def new():
     return render_template('new.html')
