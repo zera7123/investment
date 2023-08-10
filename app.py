@@ -24,11 +24,12 @@ def index():
     if result > 0:
         data = cur.fetchall()
         
+        # データを整形
         formatted_data = []
         for row in data:
             formatted_row = []
             for i, x in enumerate(row):
-                if i == 4:
+                if i == 3 or i == 5:
                     if isinstance(x, float):
                         # 小数点以下3桁まで表示
                         formatted_row.append(f'{x:0>10.3f}')
@@ -38,10 +39,11 @@ def index():
                 else:
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
-        formatted_data.append(formatted_row)
+            formatted_data.append(formatted_row)
         
-    return render_template('index.html', data=formatted_data)
-
+        return render_template('index.html', data=formatted_data)
+    else:
+        return 'No data found'
 @app.route('/new')
 def new():
     return render_template('new.html')
