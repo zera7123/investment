@@ -85,7 +85,7 @@ def result():
 def get_stock_name(stock_code):
     url = f'https://www.google.com/finance/quote/{stock_code}:TYO?hl=ja'
     page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="zzDege")
     stock_name = element.get_text()
     return stock_name
