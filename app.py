@@ -28,13 +28,18 @@ def index():
     for row in data:
         formatted_row = []
         for i, x in enumerate(row):
-            if i == 3 or i == 5:
+            if i == 1:
+               stock_price = get_stock_price(row) 
+            elif i == 3 or i == 5:
                 if isinstance(x, float):
                     # 小数点以下3桁まで表示
                     formatted_row.append(f'{x:0>10.3f}')
                 else:
                     # 整数部分を6桁で表示
                     formatted_row.append(f'{x:0>6}')
+            elif i == len(row) - 1:
+                formatted_row.append(str(x))
+                formatted_row.append(stock_price)
             else:
                 # その他の列はそのまま表示
                 formatted_row.append(str(x))
