@@ -23,6 +23,23 @@ def index():
     result = cur.execute("SELECT * FROM mytable")
     if result > 0:
         data = cur.fetchall()
+        
+        formatted_data = []
+        for row in data:
+            formatted_row = []
+            for i, x in enumerate(row):
+                if i == 4:
+                    if isinstance(x, float):
+                        # 小数点以下3桁まで表示
+                        formatted_row.append(f'{x:0>10.3f}')
+                    else:
+                        # 整数部分を6桁で表示
+                        formatted_row.append(f'{x:0>6}')
+                else:
+                    # その他の列はそのまま表示
+                    formatted_row.append(str(x))
+        formatted_data.append(formatted_row)
+        
     return render_template('index.html', data=data)
 
 @app.route('/new')
