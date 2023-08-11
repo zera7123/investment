@@ -29,6 +29,7 @@ def index():
         formatted_row = []
         for i, x in enumerate(row):
             if i == 1:
+               print(row)
                stock_price = get_stock_price(row) 
             elif i == 3 or i == 5:
                 if isinstance(x, float):
@@ -96,7 +97,7 @@ def get_stock_name(stock_code):
 def get_stock_price(stock_code):
     url = f'https://www.google.com/finance/quote/{stock_code}:TYO?hl=ja'
     page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="YMlKec fxKbKc")
     element_text = element.get_text()
     stock_price = element_text.replace('￥','').replace(',','')
