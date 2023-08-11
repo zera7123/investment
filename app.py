@@ -34,23 +34,33 @@ def index():
                formatted_row.append(str(x))
             elif i == 3:
                 stock_b_price = row[3]
-                stock_b_price_for = format(stock_b_price,',') 
-                formatted_row.append(stock_b_price_for)
+                if stock_b_price is not None:
+                    stock_b_price_for = format(stock_b_price,',') 
+                    formatted_row.append(stock_b_price_for)
+                else:
+                    formatted_row.append(stock_b_price)
             elif i == 4:
                 stock_number = row[4]
                 formatted_row.append(str(x))
             elif i == 7:
                 stock_s_price = row[7]
-                stock_s_price_for = format(stock_s_price,',')
-                formatted_row.append(stock_s_price_for)
+                if stock_s_price is not None:
+                    stock_s_price_for = format(stock_s_price,',') 
+                    formatted_row.append(stock_s_price_for)
+                else:
+                    formatted_row.append(stock_s_price)
             elif i == len(row) - 1:
                 formatted_row.append(str(x))
                 formatted_row.append(stock_price)
                 stock_price_number = Decimal(stock_price) * stock_number
-                stock_price_number_for = format(stock_number,',')
-                stock_b_price_number = format(stock_b_price * stock_number,',')
+                stock_b_price_number = stock_b_price * stock_number
+                if stock_b_price_number is not None:
+                    stock_price_number_for = format(stock_number,',')
+                    formatted_row.append(stock_price_number_for)
+                else:
+                    formatted_row.append(stock_price_number)
                 p_and_l = format(stock_price_number - stock_b_price_number , ',')
-                formatted_row.append(stock_price_number_for)
+                
                 formatted_row.append(p_and_l)
             else:
                 # その他の列はそのまま表示
