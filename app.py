@@ -70,7 +70,8 @@ def index():
                 formatted_row.append(str(x))
         formatted_data.append(formatted_row)
     
-    p_and_l_total_for = format(p_and_l_total,',')    
+    p_and_l_total_for = format(p_and_l_total,',') 
+    print(p_and_l_total_for)   
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
 

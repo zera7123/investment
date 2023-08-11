@@ -10,11 +10,12 @@
                 集計
             </button>
         </a>
+        <br>
         評価損益合計：
         {% for row_total in data2 %}
         
             
-            {{ row_total }}
+        {{ ''.join(map(str, row_total)) }}
         
         
         
