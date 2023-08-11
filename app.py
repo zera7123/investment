@@ -45,6 +45,7 @@ def index():
                 # その他の列はそのまま表示
                 formatted_row.append(str(x))
         formatted_data.append(formatted_row)
+        print(formatted_data)
         
     return render_template('index.html', data=formatted_data)
 
