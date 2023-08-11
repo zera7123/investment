@@ -29,8 +29,8 @@ def index():
         formatted_row = []
         for i, x in enumerate(row):
             if i == 1:
-               print(row)
-               stock_price = get_stock_price(row) 
+               print(row[1])
+               stock_price = get_stock_price(row[1]) 
             elif i == 3 or i == 5:
                 if isinstance(x, float):
                     # 小数点以下3桁まで表示
