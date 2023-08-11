@@ -29,16 +29,15 @@ def index():
         formatted_row = []
         for i, x in enumerate(row):
             if i == 1:
-               print(row[1])
                stock_price = get_stock_price(row[1]) 
                formatted_row.append(str(x))
-            elif i == 3 or i == 5:
-                if isinstance(x, float):
-                    # 小数点以下3桁まで表示
-                    formatted_row.append(f'{x:0>10.3f}')
-                else:
-                    # 整数部分を6桁で表示
-                    formatted_row.append(f'{x:0>6}')
+            # elif i == 3 or i == 5:
+            #     if isinstance(x, float):
+            #         # 小数点以下3桁まで表示
+            #         formatted_row.append(f'{x:0>10.3f}')
+            #     else:
+            #         # 整数部分を6桁で表示
+            #         formatted_row.append(f'{x:0>6}')
             elif i == len(row) - 1:
                 formatted_row.append(str(x))
                 formatted_row.append(stock_price)
@@ -60,11 +59,12 @@ def sign_up():
         code = request.form['code']
         name = request.form['name']
         b_price = request.form['b_price']
+        b_number = request.form['b_number']
         b_date = request.form['b_date']
         b_reason = request.form['b_reason']
         status = 1
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO mytable(code, name, b_price, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s)", (code, name, b_price, b_date, b_reason, status))
+        cur.execute("INSERT INTO mytable(code, name, b_price, b_number, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_number, b_date, b_reason, status))
         mysql.connection.commit()
         result = cur.execute("SELECT * FROM mytable")
         if result > 0:
