@@ -31,6 +31,7 @@ def index():
             if i == 1:
                print(row[1])
                stock_price = get_stock_price(row[1]) 
+               formatted_row.append(str(x))
             elif i == 3 or i == 5:
                 if isinstance(x, float):
                     # 小数点以下3桁まで表示
