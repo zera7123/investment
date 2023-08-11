@@ -19,6 +19,8 @@
                 <th>株数</th>
                 <th>購入日付</th>
                 <th>現在値</th>
+                <th>総評価額</th>
+                <th>損益額</th>
             </tr>
             {% for row in data %}
             <tr>
@@ -28,6 +30,8 @@
                 <td>{{ row[4] }}</td>
                 <td>{{ row[5] }}</td>
                 <td>{{ row[12] }}</td>
+                <td>{{ row[13] }}</td>
+                <td>{{ row[14] }}</td>
             </tr>
             {% endfor %}             
         </table>

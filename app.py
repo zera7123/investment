@@ -31,16 +31,20 @@ def index():
             if i == 1:
                stock_price = get_stock_price(row[1]) 
                formatted_row.append(str(x))
-            # elif i == 3 or i == 5:
-            #     if isinstance(x, float):
-            #         # 小数点以下3桁まで表示
-            #         formatted_row.append(f'{x:0>10.3f}')
-            #     else:
-            #         # 整数部分を6桁で表示
-            #         formatted_row.append(f'{x:0>6}')
+            elif i == 3:
+                stock_b_price = row[3]
+                formatted_row.append(str(x))
+            elif i == 4:
+                stock_number = row[4]
+                formatted_row.append(str(x))
             elif i == len(row) - 1:
                 formatted_row.append(str(x))
                 formatted_row.append(stock_price)
+                stock_price_number = stock_price * stock_number
+                stock_b_price_number = stock_b_price * stock_number
+                p_and_l = stock_price_number - stock_b_price_number
+                formatted_row.append(stock_price_number)
+                formatted_row.append(p_and_l)
             else:
                 # その他の列はそのまま表示
                 formatted_row.append(str(x))
