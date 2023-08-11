@@ -59,20 +59,19 @@ def index():
                     formatted_row.append(stock_price_number_for)
                 else:
                     formatted_row.append(stock_price_number)
-                p_and_l = format(stock_price_number - stock_b_price_number , ',')
+                p_and_l = stock_price_number - stock_b_price_number
+                p_and_l_for = format(p_and_l,',')
+                p_and_l_total += p_and_l
                 
-                formatted_row.append(p_and_l)
+                formatted_row.append(p_and_l_for)
             else:
                 # その他の列はそのまま表示
                 formatted_row.append(str(x))
         formatted_data.append(formatted_row)
+    
+    p_and_l_total_for = format(p_and_l_total,',')    
         
-        p_and_l_total = 0
-        for row_total in formatted_data:
-            print(row_total[14])
-            p_and_l_total += row_total[14]
-        
-    return render_template('index.html', data=formatted_data, data2=p_and_l_total)
+    return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
 
 @app.route('/new')
 def new():
