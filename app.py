@@ -68,6 +68,7 @@ def index():
         formatted_data.append(formatted_row)
         
         for row_total in formatted_data:
+            print(row_total[14])
             p_and_l_total = sum(row_total[14])
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total)
