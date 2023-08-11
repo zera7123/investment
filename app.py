@@ -66,9 +66,11 @@ def index():
                 # その他の列はそのまま表示
                 formatted_row.append(str(x))
         formatted_data.append(formatted_row)
-        print(formatted_data)
         
-    return render_template('index.html', data=formatted_data)
+        for row_total in formatted_data:
+            p_and_l_total = sum(row_total[14])
+        
+    return render_template('index.html', data=formatted_data, data2=p_and_l_total)
 
 @app.route('/new')
 def new():
