@@ -6,6 +6,7 @@ from datetime import date
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 import re
+from decimal import Decimal
 
 app = Flask(__name__)
 
@@ -42,7 +43,7 @@ def index():
                 formatted_row.append(stock_price)
                 stock_price_number = stock_price * stock_number
                 stock_b_price_number = stock_b_price * stock_number
-                p_and_l = stock_price_number - stock_b_price_number
+                p_and_l = Decimal(stock_price_number) - stock_b_price_number
                 formatted_row.append(stock_price_number)
                 formatted_row.append(p_and_l)
             else:
