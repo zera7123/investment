@@ -33,8 +33,9 @@ def index():
                stock_price = get_stock_price(row[1]) 
                formatted_row.append(str(x))
             elif i == 3:
-                stock_b_price = format(row[3],',')
-                formatted_row.append(str(x))
+                stock_b_price = row[3]
+                stock_b_price_for = format(stock_b_price,',') 
+                formatted_row.append(stock_b_price_for)
             elif i == 4:
                 stock_number = row[4]
                 formatted_row.append(str(x))
@@ -43,7 +44,7 @@ def index():
                 formatted_row.append(stock_price)
                 stock_price_number = Decimal(stock_price) * stock_number
                 stock_price_number_for = format(stock_number,',')
-                stock_b_price_number = Decimal(stock_b_price) * stock_number
+                stock_b_price_number = stock_b_price * stock_number
                 p_and_l = format(stock_price_number - stock_b_price_number , ',')
                 formatted_row.append(stock_price_number_for)
                 formatted_row.append(p_and_l)
