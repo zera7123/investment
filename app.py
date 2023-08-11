@@ -67,7 +67,7 @@ def index():
                 formatted_row.append(str(x))
         formatted_data.append(formatted_row)
         
-        p_and_total = 0
+        p_and_l_total = 0
         for row_total in formatted_data:
             print(row_total[14])
             p_and_l_total += row_total[14]
