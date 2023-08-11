@@ -41,10 +41,11 @@ def index():
             elif i == len(row) - 1:
                 formatted_row.append(str(x))
                 formatted_row.append(stock_price)
-                stock_price_number = format(Decimal(stock_price) * stock_number , ',')
+                stock_price_number = Decimal(stock_price) * stock_number
+                stock_price_number_for = format(stock_number,',')
                 stock_b_price_number = stock_b_price * stock_number
                 p_and_l = format(stock_price_number - stock_b_price_number , ',')
-                formatted_row.append(stock_price_number)
+                formatted_row.append(stock_price_number_for)
                 formatted_row.append(p_and_l)
             else:
                 # その他の列はそのまま表示
