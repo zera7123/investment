@@ -26,6 +26,7 @@ def index():
         
      # データを整形
     formatted_data = []
+    p_and_l_total = 0
     for row in data:
         formatted_row = []
         for i, x in enumerate(row):
