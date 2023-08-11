@@ -43,7 +43,7 @@ def index():
                 formatted_row.append(stock_price)
                 stock_price_number = Decimal(stock_price) * stock_number
                 stock_price_number_for = format(stock_number,',')
-                stock_b_price_number = stock_b_price * stock_number
+                stock_b_price_number = Decimal(stock_b_price) * stock_number
                 p_and_l = format(stock_price_number - stock_b_price_number , ',')
                 formatted_row.append(stock_price_number_for)
                 formatted_row.append(p_and_l)
