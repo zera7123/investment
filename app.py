@@ -92,6 +92,8 @@ def c_price():
                 if i == 11:
                     current_id = row[0]
                     current_p = get_stock_price(row[1])
+                    print(current_id)
+                    print(current_p)
                     cur = mysql.connection.cursor()
                     cur.execute("UPDATE mytable SET current_price = (%s) WHERE id = (%s) ", (current_p,x))
                     mysql.connection.commit()
