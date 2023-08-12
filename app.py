@@ -28,13 +28,10 @@ def index():
     formatted_data = []
     p_and_l_total = 0
     for row in data:
-        if row[11] == 1:
+        if row[12] == 1:
             formatted_row = []
             for i, x in enumerate(row):
-                if i == 1:
-                    stock_price = Decimal(get_stock_price(row[1])) 
-                    formatted_row.append(str(x))
-                elif i == 3:
+                if i == 3:
                     stock_b_price = row[3]
                     if stock_b_price is not None:
                         stock_b_price_for = format(stock_b_price,',') 
@@ -52,6 +49,7 @@ def index():
                     else:
                         formatted_row.append(stock_s_price)
                 elif i == len(row) - 1:
+                    stock_price = Decimal(row[11])
                     formatted_row.append(str(x))
                     if stock_price is not None:
                         stock_price_for = format(stock_price,',')
@@ -78,6 +76,26 @@ def index():
     p_and_l_total_for = format(p_and_l_total,',')   
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
+
+@app.route('c_price')
+def c_price():
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()
+    
+    for row in data:
+        if row[12] == 1:
+            for i, x in enumerate(row):
+                if i == 11:
+                    current_id = row[0]
+                    current_p = Decimal(get_stock_price(row[1]))
+                    current_price = request.form['current_price']
+                    cur = mysql.connection.cursor()
+                    cur.execute("UPDATE mytable SET current_price = (%s) WHERE id = (%s) ", (current_price,x))
+                    mysql.connection.commit()
+                    cur.close()
+    
+    return redirect(url_for('index'))
 
 @app.route('/new')
 def new():
@@ -109,7 +127,7 @@ def total():
     formatted_data = []
     p_and_l_total = 0
     for row in data:
-        if row[11] == 1:
+        if row[12] == 1:
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 3:
