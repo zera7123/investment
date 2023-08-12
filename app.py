@@ -77,7 +77,7 @@ def index():
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
 
-@app.route('c_price')
+@app.route('/c_price')
 def c_price():
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM mytable")
