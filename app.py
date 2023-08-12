@@ -131,7 +131,10 @@ def total():
                         formatted_row.append(stock_s_price)
                 elif i == len(row) - 1:
                     formatted_row.append(str(x))
-                    stock_s_price_number = stock_s_price * stock_number
+                    if stock_s_price is not None:
+                        stock_s_price_number = stock_s_price * stock_number
+                    else:
+                        stock_s_price_number = 0
                     stock_b_price_number = stock_b_price * stock_number
                     p_and_l = stock_s_price_number - stock_b_price_number
                     p_and_l_for = format(p_and_l,',')
