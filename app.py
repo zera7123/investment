@@ -32,7 +32,7 @@ def index():
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 1:
-                    stock_price = get_stock_price(row[1]) 
+                    stock_price = Decimal(get_stock_price(row[1])) 
                     formatted_row.append(str(x))
                 elif i == 3:
                     stock_b_price = row[3]
@@ -58,7 +58,7 @@ def index():
                         formatted_row.append(stock_price_for)
                     else:
                         formatted_row.append(stock_price)
-                    stock_price_number = Decimal(stock_price) * stock_number
+                    stock_price_number = stock_price * stock_number
                     if stock_price_number is not None:
                         stock_price_number_for = format(stock_price_number,',')
                         formatted_row.append(stock_price_number_for)
