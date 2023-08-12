@@ -92,9 +92,6 @@ def sign_up():
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO mytable(code, name, b_price, b_number, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_number, b_date, b_reason, status))
         mysql.connection.commit()
-        result = cur.execute("SELECT * FROM mytable")
-        if result > 0:
-                data = cur.fetchall()
         cur.close()
         return redirect(url_for('index'))
 
