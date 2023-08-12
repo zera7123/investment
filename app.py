@@ -53,14 +53,18 @@ def index():
                         formatted_row.append(stock_s_price)
                 elif i == len(row) - 1:
                     formatted_row.append(str(x))
-                    formatted_row.append(stock_price)
+                    if stock_price is not None:
+                        stock_price_for = format(stock_price,',')
+                        formatted_row.append(stock_price_for)
+                    else:
+                        formatted_row.append(stock_price)
                     stock_price_number = Decimal(stock_price) * stock_number
-                    stock_b_price_number = stock_b_price * stock_number
-                    if stock_b_price_number is not None:
-                        stock_price_number_for = format(stock_number,',')
+                    if stock_price_number is not None:
+                        stock_price_number_for = format(stock_price_number,',')
                         formatted_row.append(stock_price_number_for)
                     else:
                         formatted_row.append(stock_price_number)
+                    stock_b_price_number = stock_b_price * stock_number
                     p_and_l = stock_price_number - stock_b_price_number
                     p_and_l_for = format(p_and_l,',')
                     p_and_l_total += p_and_l
@@ -95,9 +99,55 @@ def sign_up():
         cur.close()
         return redirect(url_for('index'))
 
-# @app.route('/total')
-# def total():
-#     return render_template('total.html')
+@app.route('/total')
+def total():
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()
+        
+     # データを整形
+    formatted_data = []
+    p_and_l_total = 0
+    for row in data:
+        if row[11] == 1:
+            formatted_row = []
+            for i, x in enumerate(row):
+                if i == 3:
+                    stock_b_price = row[3]
+                    if stock_b_price is not None:
+                        stock_b_price_for = format(stock_b_price,',') 
+                        formatted_row.append(stock_b_price_for)
+                    else:
+                        formatted_row.append(stock_b_price)
+                elif i == 4:
+                    stock_number = row[4]
+                    formatted_row.append(str(x))
+                elif i == 7:
+                    stock_s_price = row[7]
+                    if stock_s_price is not None:
+                        stock_s_price_for = format(stock_s_price,',') 
+                        formatted_row.append(stock_s_price_for)
+                    else:
+                        formatted_row.append(stock_s_price)
+                elif i == len(row) - 1:
+                    formatted_row.append(str(x))
+                    stock_s_price_number = stock_s_price * stock_number
+                    stock_b_price_number = stock_b_price * stock_number
+                    p_and_l = stock_s_price_number - stock_b_price_number
+                    p_and_l_for = format(p_and_l,',')
+                    p_and_l_total += p_and_l
+                
+                    formatted_row.append(p_and_l_for)
+                else:
+                    # その他の列はそのまま表示
+                    formatted_row.append(str(x))
+            formatted_data.append(formatted_row)
+    
+    p_and_l_total_for = format(p_and_l_total,',')   
+       
+    
+
+    return render_template('total.html', data=formatted_data, data2=p_and_l_total_for)
 
 @app.route('/result', methods=['POST'])
 def result():
