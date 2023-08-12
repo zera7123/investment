@@ -49,7 +49,10 @@ def index():
                     else:
                         formatted_row.append(stock_s_price)
                 elif i == len(row) - 1:
-                    stock_price = Decimal(row[11])
+                    if row[11] is not None:
+                        stock_price = Decimal(row[11])
+                    else:
+                        stock_price = Decimal('0')
                     formatted_row.append(str(x))
                     if stock_price is not None:
                         stock_price_for = format(stock_price,',')
