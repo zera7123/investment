@@ -95,7 +95,7 @@ def c_price():
                     print(current_id)
                     print(current_p)
                     cur = mysql.connection.cursor()
-                    cur.execute("UPDATE mytable SET current_price = (%s) WHERE id = (%s) ", (current_p,x))
+                    cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
                     mysql.connection.commit()
                     cur.close()
     
