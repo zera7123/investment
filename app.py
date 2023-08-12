@@ -28,50 +28,50 @@ def index():
     formatted_data = []
     p_and_l_total = 0
     for row in data:
-        formatted_row = []
-        for i, x in enumerate(row):
-            if i == 1:
-               stock_price = get_stock_price(row[1]) 
-               formatted_row.append(str(x))
-            elif i == 3:
-                stock_b_price = row[3]
-                if stock_b_price is not None:
-                    stock_b_price_for = format(stock_b_price,',') 
-                    formatted_row.append(stock_b_price_for)
-                else:
-                    formatted_row.append(stock_b_price)
-            elif i == 4:
-                stock_number = row[4]
-                formatted_row.append(str(x))
-            elif i == 7:
-                stock_s_price = row[7]
-                if stock_s_price is not None:
-                    stock_s_price_for = format(stock_s_price,',') 
-                    formatted_row.append(stock_s_price_for)
-                else:
-                    formatted_row.append(stock_s_price)
-            elif i == len(row) - 1:
-                formatted_row.append(str(x))
-                formatted_row.append(stock_price)
-                stock_price_number = Decimal(stock_price) * stock_number
-                stock_b_price_number = stock_b_price * stock_number
-                if stock_b_price_number is not None:
-                    stock_price_number_for = format(stock_number,',')
-                    formatted_row.append(stock_price_number_for)
-                else:
-                    formatted_row.append(stock_price_number)
-                p_and_l = stock_price_number - stock_b_price_number
-                p_and_l_for = format(p_and_l,',')
-                p_and_l_total += p_and_l
+        if row[11] == 1:
+            formatted_row = []
+            for i, x in enumerate(row):
+                if i == 1:
+                    stock_price = get_stock_price(row[1]) 
+                    formatted_row.append(str(x))
+                elif i == 3:
+                    stock_b_price = row[3]
+                    if stock_b_price is not None:
+                        stock_b_price_for = format(stock_b_price,',') 
+                        formatted_row.append(stock_b_price_for)
+                    else:
+                        formatted_row.append(stock_b_price)
+                elif i == 4:
+                    stock_number = row[4]
+                    formatted_row.append(str(x))
+                elif i == 7:
+                    stock_s_price = row[7]
+                    if stock_s_price is not None:
+                        stock_s_price_for = format(stock_s_price,',') 
+                        formatted_row.append(stock_s_price_for)
+                    else:
+                        formatted_row.append(stock_s_price)
+                elif i == len(row) - 1:
+                    formatted_row.append(str(x))
+                    formatted_row.append(stock_price)
+                    stock_price_number = Decimal(stock_price) * stock_number
+                    stock_b_price_number = stock_b_price * stock_number
+                    if stock_b_price_number is not None:
+                        stock_price_number_for = format(stock_number,',')
+                        formatted_row.append(stock_price_number_for)
+                    else:
+                        formatted_row.append(stock_price_number)
+                    p_and_l = stock_price_number - stock_b_price_number
+                    p_and_l_for = format(p_and_l,',')
+                    p_and_l_total += p_and_l
                 
-                formatted_row.append(p_and_l_for)
-            else:
-                # その他の列はそのまま表示
-                formatted_row.append(str(x))
-        formatted_data.append(formatted_row)
+                    formatted_row.append(p_and_l_for)
+                else:
+                    # その他の列はそのまま表示
+                    formatted_row.append(str(x))
+            formatted_data.append(formatted_row)
     
-    p_and_l_total_for = format(p_and_l_total,',') 
-    print(p_and_l_total_for)   
+    p_and_l_total_for = format(p_and_l_total,',')   
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
 
