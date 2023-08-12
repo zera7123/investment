@@ -88,7 +88,7 @@ def c_price():
             for i, x in enumerate(row):
                 if i == 11:
                     current_id = row[0]
-                    current_p = Decimal(get_stock_price(row[1]))
+                    current_p = get_stock_price(row[1])
                     current_price = request.form['current_price']
                     cur = mysql.connection.cursor()
                     cur.execute("UPDATE mytable SET current_price = (%s) WHERE id = (%s) ", (current_price,x))
