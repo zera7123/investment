@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas_datareader as pdr
 from datetime import datetime
 from datetime import date
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import re
 from decimal import Decimal
@@ -96,7 +96,7 @@ def sign_up():
         if result > 0:
                 data = cur.fetchall()
         cur.close()
-        return render_template('index.html', data=data)
+        return redirect(url_for('index'))
 
 # @app.route('/total')
 # def total():
