@@ -222,10 +222,10 @@ def data():
             else:
                 stock_c_price_number = 0   
             if stock_c_price_number is not None:
-                stock_c_price_number_for = format(stock_c_price,',')
+                stock_c_price_number_for = format(stock_c_price_number,',')
                 formatted_data.append(stock_c_price_number_for)
             else:
-                formatted_data.append(stock_c_price) 
+                formatted_data.append(stock_c_price_number) 
             p_and_l = stock_c_price_number - stock_b_price_number
             if p_and_l is not None:
                 p_and_l_for = format(p_and_l,',')
