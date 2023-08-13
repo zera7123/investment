@@ -185,21 +185,27 @@ def data():
         com0 = int(row[0])
         com1 = int(arg1)
         if com0 == com1:
-            formatted_data.append(row[0],row[1],row[2])
+            formatted_data.append(row[0])
+            formatted_data.append(row[1])
+            formatted_data.append(row[2])
             stock_b_price = row[3]
             if stock_b_price is not None:
                 stock_b_price_for = format(stock_b_price,',')
                 formatted_data.append(stock_b_price_for)
             else:
                 formatted_data.append(stock_b_price)
-            formatted_data.append(row[4],row[5],row[6])
+            formatted_data.append(row[4])
+            formatted_data.append(row[5])
+            formatted_data.append(row[6])
             stock_s_price = row[7]
             if stock_s_price is not None:
                 stock_s_price_for = format(stock_s_price,',')
                 formatted_data.append(stock_s_price_for)
             else:
                 formatted_data.append(stock_s_price)
-            formatted_data.append(row[8],row[9],row[10])                
+            formatted_data.append(row[8])
+            formatted_data.append(row[9])
+            formatted_data.append(row[10])               
             stock_c_price = row[7]
             if stock_c_price is not None:
                 stock_c_price_for = format(stock_c_price,',')
