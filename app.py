@@ -206,16 +206,21 @@ def data():
             formatted_data.append(row[8])
             formatted_data.append(row[9])
             formatted_data.append(row[10])               
-            stock_c_price = row[7]
+            stock_c_price = row[11]
             if stock_c_price is not None:
                 stock_c_price_for = format(stock_c_price,',')
                 formatted_data.append(stock_c_price_for)
             else:
-                formatted_data.append(stock_c_price)           
-            stock_code = row[1]        
+                formatted_data.append(stock_c_price)                  
             stock_number = row[4]
-            stock_b_price_number = stock_b_price * stock_number
-            stock_c_price_number = stock_c_price * stock_number
+            if stock_b_price is not None:
+                stock_b_price_number = stock_b_price * stock_number
+            else:
+                stock_b_price_number = 0
+            if stock_c_price is not None:
+                stock_c_price_number = stock_c_price * stock_number
+            else:
+                stock_c_price_number = 0   
             if stock_c_price_number is not None:
                 stock_c_price_number_for = format(stock_c_price,',')
                 formatted_data.append(stock_c_price_number_for)
