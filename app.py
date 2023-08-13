@@ -182,6 +182,7 @@ def data():
     formatted_data = []
     for row in data:
         if row[0] == arg1:
+            print(row[0])
             formatted_data.append(row[0],row[1],row[2])
             stock_b_price = row[3]
             if stock_b_price is not None:
