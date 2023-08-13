@@ -285,7 +285,7 @@ def get_stock_name(stock_code):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="zzDege")
-    if element.get_text() is not None:
+    if element is not None:
         stock_name = element.get_text()
     else:
         stock_name = 'None'
@@ -296,7 +296,7 @@ def get_stock_price(stock_code):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="YMlKec fxKbKc")
-    if element.get_text() is not None:
+    if element is not None:
         element_text = element.get_text()
         stock_price = element_text.replace('￥','').replace(',','')
     else:
