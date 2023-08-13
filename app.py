@@ -180,7 +180,9 @@ def data():
     data = cur.fetchall()   
     
     formatted_data = []
+    
     for row in data:
+        print(row[0],arg1)
         if row[0] == arg1:
             print(row[0])
             formatted_data.append(row[0],row[1],row[2])
