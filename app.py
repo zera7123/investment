@@ -218,7 +218,9 @@ def data():
                 formatted_data.append(p_and_l_for)
             else:
                 formatted_data.append(p_and_l)
-        
+            
+    
+    print(formatted_data)    
     return render_template('data.html',data = formatted_data)
 
 
