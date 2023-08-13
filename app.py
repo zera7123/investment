@@ -232,10 +232,40 @@ def data():
                 formatted_data.append(p_and_l_for)
             else:
                 formatted_data.append(p_and_l)
-            
-    
-    print(formatted_data)    
+               
     return render_template('data.html',data = formatted_data)
+
+@app.route('/add_buy', methods=['POST'])
+def add_buy():
+    if request.method == 'POST':
+        code = request.form['code']
+        name = request.form['name']
+        b_price = request.form['b_price']
+        b_number = request.form['b_number']
+        b_date = request.form['b_date']
+        b_reason = request.form['b_reason']
+        status = 1
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO mytable(code, name, b_price, b_number, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_number, b_date, b_reason, status))
+        mysql.connection.commit()
+        cur.close()      
+    return redirect(url_for('index'))
+
+@app.route('/sell', methods=['POST'])
+def sell():
+    if request.method == 'POST':
+        code = request.form['code']
+        name = request.form['name']
+        b_price = request.form['b_price']
+        b_number = request.form['b_number']
+        b_date = request.form['b_date']
+        b_reason = request.form['b_reason']
+        status = 1
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO mytable(code, name, b_price, b_number, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_number, b_date, b_reason, status))
+        mysql.connection.commit()
+        cur.close()      
+    return redirect(url_for('index'))
 
 
 @app.route('/result', methods=['POST'])
@@ -255,7 +285,10 @@ def get_stock_name(stock_code):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="zzDege")
-    stock_name = element.get_text()
+    if element.get_text() is not None:
+        stock_name = element.get_text()
+    else:
+        stock_name = 'None'
     return stock_name
 
 def get_stock_price(stock_code):
@@ -263,8 +296,11 @@ def get_stock_price(stock_code):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'lxml')
     element = soup.find('div', class_="YMlKec fxKbKc")
-    element_text = element.get_text()
-    stock_price = element_text.replace('￥','').replace(',','')
+    if element.get_text() is not None:
+        element_text = element.get_text()
+        stock_price = element_text.replace('￥','').replace(',','')
+    else:
+        stock_price = 'None'
     return stock_price
 
 if __name__ == '__main__':
