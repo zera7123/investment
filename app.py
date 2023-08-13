@@ -174,6 +174,16 @@ def total():
 
     return render_template('total.html', data=formatted_data, data2=p_and_l_total_for)
 
+@app.route('/data')
+def data():
+    arg1 = request.arg.get('arg1')
+    
+    print("arg1")
+    
+    
+    return render_template('data.html',data = arg1)
+
+
 @app.route('/result', methods=['POST'])
 def result():
     stock_code = request.form['stock_code']
