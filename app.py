@@ -92,8 +92,6 @@ def c_price():
                 if i == 11:
                     current_id = row[0]
                     current_p = get_stock_price(row[1])
-                    print(current_id)
-                    print(current_p)
                     cur = mysql.connection.cursor()
                     cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
                     mysql.connection.commit()
@@ -177,11 +175,51 @@ def total():
 @app.route('/data')
 def data():
     arg1 = request.args.get('arg1')
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()   
     
-    print(arg1)
-    
-    
-    return render_template('data.html',data = arg1)
+    formatted_data = []
+    for row in data:
+        if row[0] == arg1:
+            formatted_data.append(row[0],row[1],row[2])
+            stock_b_price = row[3]
+            if stock_b_price is not None:
+                stock_b_price_for = format(stock_b_price,',')
+                formatted_data.append(stock_b_price_for)
+            else:
+                formatted_data.append(stock_b_price)
+            formatted_data.append(row[4],row[5],row[6])
+            stock_s_price = row[7]
+            if stock_s_price is not None:
+                stock_s_price_for = format(stock_s_price,',')
+                formatted_data.append(stock_s_price_for)
+            else:
+                formatted_data.append(stock_s_price)
+            formatted_data.append(row[8],row[9],row[10])                
+            stock_c_price = row[7]
+            if stock_c_price is not None:
+                stock_c_price_for = format(stock_c_price,',')
+                formatted_data.append(stock_c_price_for)
+            else:
+                formatted_data.append(stock_c_price)           
+            stock_code = row[1]        
+            stock_number = row[4]
+            stock_b_price_number = stock_b_price * stock_number
+            stock_c_price_number = stock_c_price * stock_number
+            if stock_c_price_number is not None:
+                stock_c_price_number_for = format(stock_c_price,',')
+                formatted_data.append(stock_c_price_number_for)
+            else:
+                formatted_data.append(stock_c_price) 
+            p_and_l = stock_c_price_number - stock_b_price_number
+            if p_and_l is not None:
+                p_and_l_for = format(p_and_l,',')
+                formatted_data.append(p_and_l_for)
+            else:
+                formatted_data.append(p_and_l)
+        
+    return render_template('data.html',data = formatted_data)
 
 
 @app.route('/result', methods=['POST'])
