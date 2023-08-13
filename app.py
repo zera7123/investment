@@ -178,7 +178,7 @@ def total():
 def data():
     arg1 = request.args.get('arg1')
     
-    print("arg1")
+    print(arg1)
     
     
     return render_template('data.html',data = arg1)
