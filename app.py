@@ -176,7 +176,7 @@ def total():
 
 @app.route('/data')
 def data():
-    arg1 = request.arg.get('arg1')
+    arg1 = request.args.get('arg1')
     
     print("arg1")
     
