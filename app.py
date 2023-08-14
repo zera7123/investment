@@ -268,7 +268,7 @@ def add_buy():
 @app.route('/sell', methods=['POST'])
 def sell():
     id_number = request.args.get('arg0')
-    b_price = request.arges.get('arg1')
+    b_price = request.args.get('arg1')
     c_number = request.args.get('arg2')
     c_t_pl = request.args.get('arg3')
        
