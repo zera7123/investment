@@ -34,7 +34,7 @@
         </form>
         <hr><br>
         売却<br><br>
-        <form action="/sell" method="post">
+        <form action="/sell?arg0={{ data[0] }}&arg1={{ data[4] }}" method="post">
             <label for="code">銘柄コード:</label>
             <input type="text" name="code" value="{{ data[1] }}"><br><br> 
 

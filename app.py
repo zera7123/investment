@@ -251,7 +251,7 @@ def add_buy():
         status = 1
         
         t_number = int(p_number) + int(b_number)
-        t_price = ((p_price*p_number)+(b_price*b_number))/t_number
+        t_price = ((Decimal(p_price)*Decimal(p_number))+(Decimal(b_price)*Decimal(b_number)))/Decimal(t_number)
         
         cur = mysql.connection.cursor()
         cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, id_number))
