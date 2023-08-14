@@ -281,7 +281,7 @@ def sell():
         s_reason = request.form['s_reason']
         
         if s_price is not None:
-            s_price_for = format(s_price,',')
+            s_price_for = format(s_price, ',')
         else:
             s_price_for = 0
         
