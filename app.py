@@ -275,15 +275,15 @@ def sell():
     if request.method == 'POST':
         # code = request.form['code']
         # name = request.form['name']
-        s_price = request.form['s_price']
+        sell_price = request.form['s_price']
         s_number = request.form['s_number']
         s_date = request.form['s_date']
         s_reason = request.form['s_reason']
         
-        if s_price is not None:
-            s_price_for = format(s_price, ',')
+        if sell_price is not None:
+            sell_price_for = format(sell_price, ',')
         else:
-            s_price_for = 0
+            sell_price_for = 0
         
         r_number = int(c_number) - int(s_number)
         if r_number == 0:
@@ -299,7 +299,7 @@ def sell():
             t_pl = 0
                
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE mytable SET b_number = %s, s_price = %s, s_number = %s, s_date = %s, s_reason = %s, total_pl = %s, status = %s  WHERE id = %s", (r_number, s_price_for, s_number, s_date, s_reason, t_pl, status, id_number))
+        cur.execute("UPDATE mytable SET b_number = %s, s_price = %s, s_number = %s, s_date = %s, s_reason = %s, total_pl = %s, status = %s  WHERE id = %s", (r_number, sell_price_for, s_number, s_date, s_reason, t_pl, status, id_number))
         mysql.connection.commit()
         cur.close()
     return redirect(url_for('index'))
