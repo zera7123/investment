@@ -178,6 +178,7 @@ def data():
     cur = mysql.connection.cursor()
     result = cur.execute("SELECT * FROM mytable")
     data = cur.fetchall()   
+    today = date.today()  
     
     formatted_data = []
     
@@ -233,22 +234,30 @@ def data():
             else:
                 formatted_data.append(p_and_l)
                
-    return render_template('data.html',data = formatted_data)
+    return render_template('data.html',data = formatted_data, today = today)
 
 @app.route('/add_buy', methods=['POST'])
 def add_buy():
+    id_number = request.args.get('arg0')
+    p_price = request.args.get('arg1')
+    p_number = request.args.get('arg2')
     if request.method == 'POST':
-        code = request.form['code']
-        name = request.form['name']
+        # code = request.form['code']
+        # name = request.form['name']
         b_price = request.form['b_price']
         b_number = request.form['b_number']
         b_date = request.form['b_date']
         b_reason = request.form['b_reason']
         status = 1
+        
+        t_number = int(p_number) + int(b_number)
+        t_price = ((p_price*p_number)+(b_price*b_number))/t_number
+        
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO mytable(code, name, b_price, b_number, b_date, b_reason, status) VALUES (%s, %s, %s, %s, %s, %s, %s)", (code, name, b_price, b_number, b_date, b_reason, status))
+        cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, id_number))
         mysql.connection.commit()
-        cur.close()      
+        cur.close()
+            
     return redirect(url_for('index'))
 
 @app.route('/sell', methods=['POST'])

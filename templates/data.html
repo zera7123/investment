@@ -8,5 +8,52 @@
         現在価格:{{ data[11] }}<br>
         評価額:{{ data[12] }}<br>
         損益額:{{ data[13] }}<br>
+
+        <hr><br>
+        買い増し<br><br>
+        <form action="/add_buy?arg0={{ data[0] }}&arg1={{ data[3] }}&arg2={{ data[4] }}" method="post">
+            <label for="code">銘柄コード:</label>
+            <input type="text" name="code" value="{{ data[1] }}"><br><br> 
+
+            <label for="name">銘柄名:</label>
+            <input type="text" id="name" name="name" value="{{ data[2] }}"><br><br>
+            
+            <label for="b_price">買値:</label>
+            <input type="number" step="0.01" id="b_price" name="b_price" value="{{ data[11] }}"><br><br>
+
+            <label for="b_number">株数:</label>
+            <input type="number" id="b_number" name="b_number" value=100><br><br>
+            
+            <label for="b_date">購入日付:</label>
+            <input type="date" id="b_date" name="b_date" value="{{ today }}"><br><br>
+            
+            <label for="b_reason">購入理由:</label>
+            <input type="text" id="b_reason" name="b_reason"　value="{{ data[6] }}"><br><br>
+                    
+            <input type="submit" value="買い増し登録">
+        </form>
+        <hr><br>
+        売却<br><br>
+        <form action="/sell" method="post">
+            <label for="code">銘柄コード:</label>
+            <input type="text" name="code" value="{{ data[1] }}"><br><br> 
+
+            <label for="name">銘柄名:</label>
+            <input type="text" id="name" name="name" value="{{ data[2] }}"><br><br>
+            
+            <label for="s_price">売値:</label>
+            <input type="number" step="0.01" id="s_price" name="s_price" value="{{ data[11] }}"><br><br>
+
+            <label for="s_number">株数:</label>
+            <input type="number" id="s_number" name="s_number" value=100><br><br>
+            
+            <label for="s_date">売却日付:</label>
+            <input type="date" id="s_date" name="s_date" value="{{ today }}"><br><br>
+            
+            <label for="s_reason">結果の理由:</label>
+            <input type="text" id="s_reason" name="s_reason" value="{{ data[10] }}"><br><br>
+                    
+            <input type="submit" value="売却登録">
+        </form>            
     </body>
 </html>
