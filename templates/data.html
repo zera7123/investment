@@ -3,11 +3,14 @@
         銘柄コード:{{ data[1] }}<br>
         銘柄名:{{ data[2] }}<br>
         買値:{{ data[3] }}<br>
-        購入株数:{{ data[4] }}<br>
+        現在の株数:{{ data[4] }}<br>
         購入日付:{{ data[5] }}<br>
         現在価格:{{ data[11] }}<br>
         評価額:{{ data[12] }}<br>
-        損益額:{{ data[13] }}<br>
+        損益額:{{ data[13] }}<br><br>
+        総売却株数:{{ data[8] }}<br>
+        総確定損益額{{ data[14] }}<br>
+
 
         <hr><br>
         買い増し<br><br>
@@ -34,7 +37,7 @@
         </form>
         <hr><br>
         売却<br><br>
-        <form action="/sell?arg0={{ data[0] }}&arg1={{ data[4] }}" method="post">
+        <form action="/sell?arg0={{ data[0] }}&arg1={{ data[3] }}&arg2={{ data[4] }}&arg2={{ data[14] }}" method="post">
             <label for="code">銘柄コード:</label>
             <input type="text" name="code" value="{{ data[1] }}"><br><br> 
 
