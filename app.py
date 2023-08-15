@@ -310,8 +310,10 @@ def sell():
         s_reason = request.form['s_reason']
         
         s_number = sr_number + c_s_number
+        sr_price_number = sr_price * sr_number
+        c_s_price_number = c_s_price + c_s_number
         
-        s_price = (sr_price * sr_number + c_s_price * c_s_number)/s_number
+        s_price = (sr_price_number + c_s_price_number)/s_number
         
         r_number = int(c_number) - int(sr_number)
         if r_number == 0:
