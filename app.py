@@ -233,7 +233,12 @@ def data():
                 formatted_data.append(p_and_l_for)
             else:
                 formatted_data.append(p_and_l)
-            formatted_data.append(row[12])
+            if row[12] is not None:
+                c_pl = format(row[12],',')    
+                formatted_data.append(c_pl)
+            else:
+                c_pl = 0
+                formatted_data.append(c_pl)
                
     return render_template('data.html',data = formatted_data, today = today)
 
@@ -281,10 +286,6 @@ def sell():
         s_reason = request.form['s_reason']
         
         s_price = Decimal(s_price)
-        if s_price is not None:
-            s_price_for = format(s_price, ',')
-        else:
-            s_price_for = 0
         
         r_number = int(c_number) - int(s_number)
         if r_number == 0:
@@ -303,12 +304,11 @@ def sell():
         
         if t_pl is not None:
             t_pl = Decimal(t_pl)
-            t_pl = format(t_pl,',')
         else:
             t_pl = 0
                
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE mytable SET b_number = %s, s_price = %s, s_number = %s, s_date = %s, s_reason = %s, total_pl = %s, status = %s  WHERE id = %s", (r_number, s_price_for, s_number, s_date, s_reason, t_pl, status, id_number))
+        cur.execute("UPDATE mytable SET b_number = %s, s_price = %s, s_number = %s, s_date = %s, s_reason = %s, total_pl = %s, status = %s  WHERE id = %s", (r_number, s_price, s_number, s_date, s_reason, t_pl, status, id_number))
         mysql.connection.commit()
         cur.close()
     return redirect(url_for('index'))
