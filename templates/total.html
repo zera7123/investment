@@ -20,12 +20,12 @@
             <tr>
                 <th>銘柄コード</th>
                 <th>銘柄名</th>
-                <th>買値</th>
-                <th>株数</th>
-                <th>購入日付</th>
+                <th>平均買値</th>
+                <th>最終購入日付</th>
                 <th>購入理由</th>
-                <th>売値</th>
-                <th>売却日付</th>
+                <th>売値平均値</th>
+                <th>売却総株数</th>
+                <th>最終売却日付</th>
                 <th>結果の理由</th>
                 <th>損益額</th>
             </tr>
@@ -34,13 +34,13 @@
                 <td>{{ row[1] }}</td>
                 <td>{{ row[2] }}</td>
                 <td>{{ row[3] }}</td>
-                <td>{{ row[4] }}</td>
                 <td>{{ row[5] }}</td>
                 <td>{{ row[6] }}</td>
                 <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
                 <td>{{ row[9] }}</td>
                 <td>{{ row[10] }}</td>
-                <td>{{ row[14] }}</td>
+                <td>{{ row[12] }}</td>
             </tr>
             {% endfor %}             
         </table>

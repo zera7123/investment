@@ -23,12 +23,12 @@
             <tr>
                 <th>銘柄コード</th>
                 <th>銘柄名</th>
-                <th>買値</th>
-                <th>株数</th>
-                <th>購入日付</th>
+                <th>平均買値</th>
+                <th>現在所持株数</th>
+                <th>最終購入日付</th>
                 <th>現在価格</th>
                 <th>評価額</th>
-                <th>損益額</th>
+                <th>含み損益額</th>
             </tr>
             {% for row in data %}
             <tr>
@@ -45,9 +45,9 @@
                 <td>{{ row[3] }}</td>
                 <td>{{ row[4] }}</td>
                 <td>{{ row[5] }}</td>
+                <td>{{ row[11] }}</td>
                 <td>{{ row[14] }}</td>
                 <td>{{ row[15] }}</td>
-                <td>{{ row[16] }}</td>
             </tr>
             {% endfor %}             
         </table>

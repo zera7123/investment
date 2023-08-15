@@ -48,17 +48,18 @@ def index():
                         formatted_row.append(stock_s_price_for)
                     else:
                         formatted_row.append(stock_s_price)
-                elif i == len(row) - 1:
+                elif i == 11:
                     if row[11] is not None:
                         stock_price = Decimal(row[11])
                     else:
-                        stock_price = Decimal('0')
-                    formatted_row.append(str(x))
+                        stock_price = Decimal('0')                    
                     if stock_price is not None:
                         stock_price_for = format(stock_price,',')
                         formatted_row.append(stock_price_for)
                     else:
                         formatted_row.append(stock_price)
+                elif i == len(row) - 1:
+                    formatted_row.append(str(x))
                     stock_price_number = stock_price * stock_number
                     if stock_price_number is not None:
                         stock_price_number_for = format(stock_price_number,',')
@@ -173,7 +174,7 @@ def total():
                 if i == len(row) - 1:
                     c_stock_b_price = row[3]
                     c_stock_number = row[4]
-                    c_stock_price = row[12]
+                    c_stock_price = row[11]
                     
                     if c_stock_b_price is not None:
                         c_stock_b_price_number = c_stock_b_price * c_stock_number
@@ -302,24 +303,28 @@ def sell():
     b_price = request.args.get('arg1')
     c_number = request.args.get('arg2')
     c_t_pl = request.args.get('arg3')
+    c_s_number = request.args.get('arg4')
+    c_s_price = request.args.get('arg5')
        
     if request.method == 'POST':
         # code = request.form['code']
         # name = request.form['name']
-        s_price = request.form['s_price']
-        s_number = request.form['s_number']
+        sr_price = request.form['s_price']
+        sr_number = request.form['s_number']
         s_date = request.form['s_date']
         s_reason = request.form['s_reason']
         
-        s_price = Decimal(s_price)
+        s_number = sr_number + c_s_number
         
-        r_number = int(c_number) - int(s_number)
+        s_price = (sr_price * sr_number + c_s_price * c_s_number)/s_number
+        
+        r_number = int(c_number) - int(sr_number)
         if r_number == 0:
             status = 0
         else:
             status = 1
             
-        pl = (Decimal(s_price)-Decimal(b_price))*Decimal(s_number)
+        pl = (Decimal(sr_price)-Decimal(b_price))*Decimal(sr_number)
         if c_t_pl is not None:
             c_t_pl = Decimal(c_t_pl)
         else:
