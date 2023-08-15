@@ -313,7 +313,7 @@ def sell():
         sr_price_number = Decimal(sr_price) * Decimal(sr_number)
         if c_s_price is not None:
             if c_s_number is not None:
-                c_s_price_number = Decimal(c_s_price) * Decimalecimal(c_s_number)
+                c_s_price_number = Decimal(c_s_price) * Decimal(c_s_number)
             else:
                 c_s_price_number = 0
         else:
