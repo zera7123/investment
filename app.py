@@ -189,7 +189,7 @@ def total():
                             
     pl_and_c_pl = p_and_l_total + c_pl_total        
     p_and_l_total_for = format(p_and_l_total,',')
-    c_pl_total_for = format(C_pl_total,',')
+    c_pl_total_for = format(c_pl_total,',')
     pl_and_c_pl_for =    format(pl_and_c_pl,',')
     print(formatted_data)
     print(p_and_l_total_for)
