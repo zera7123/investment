@@ -317,7 +317,7 @@ def sell():
         
         if c_s_price is not None:
             if c_s_number is not None:
-                c_s_price_number = c_s_price * c_s_number
+                c_s_price_number = 0
             else:
                 c_s_price_number = 0
         else:
