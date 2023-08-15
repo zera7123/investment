@@ -130,8 +130,9 @@ def total():
      # データを整形
     formatted_data = []
     p_and_l_total = 0
+    c_pl_total = 0
     for row in data:
-        if row[13] == 1:
+        if row[13] == 0:
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 3:
@@ -167,14 +168,35 @@ def total():
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
             formatted_data.append(formatted_row)
-    
-    p_and_l_total_for = format(p_and_l_total,',')   
+        elif row[13] == 1:
+            for i, x in enumerate(row):
+                if i == len(row) - 1:
+                    c_stock_b_price = row[3]
+                    c_stock_number = row[4]
+                    c_stock_price = row[12]
+                    
+                    if c_stock_b_price is not None:
+                        c_stock_b_price_number = c_stock_b_price * c_stock_number
+                    else:
+                        c_stock_p_price_number = 0
+                    if c_stock_price is not None:
+                        c_stock_price_number = c_stock_price * c_stock_number
+                    else:
+                        c_stock_price_number = 0
+                        
+                    c_pl = c_stock_price_number - c_stock_b_price_number
+                    c_pl_total += c_pl
+                            
+    pl_and_c_pl = p_and_l_total + c_pl_total        
+    p_and_l_total_for = format(p_and_l_total,',')
+    c_pl_total_for = format(C_pl_total,',')
+    pl_and_c_pl_for =    format(pl_and_c_pl,',')
     print(formatted_data)
     print(p_and_l_total_for)
        
     
 
-    return render_template('total.html', data=formatted_data, data2=p_and_l_total_for)
+    return render_template('total.html', data=formatted_data, data2=p_and_l_total_for, data3=c_pl_total_for, data4=pl_and_c_pl_for)
 
 @app.route('/data')
 def data():
