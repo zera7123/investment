@@ -293,8 +293,12 @@ def sell():
             status = 1
             
         pl = (Decimal(s_price)-Decimal(b_price))*Decimal(s_number)
-        t_pl = Decimal(c_t_pl)+Decimal(pl)
+
+        t_pl = c_t_pl+ pl
+        
+        
         if t_pl is not None:
+            t_pl = Decimal(t_pl)
             t_pl = format(t_pl,',')
         else:
             t_pl = 0
