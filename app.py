@@ -267,19 +267,42 @@ def data():
 @app.route('/add_buy', methods=['POST'])
 def add_buy():
     id_number = request.args.get('arg0')
-    p_price = request.args.get('arg1')
-    p_number = request.args.get('arg2')
+    # p_price = request.args.get('arg1')
+    # p_number = request.args.get('arg2')
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()   
+    
+    for row in data:
+        com0 = int(row[0])
+        com1 = int(id_number)
+        if com0 == com1:
+            if row[3] is not None:
+                p_price = Decimal(row[3])
+            else:
+                p_price = Decimal(0)
+            if row[4] is not None:
+                p_number =  Decimal(row[4])
+            else:
+                p_number = 0       
+        
     if request.method == 'POST':
-        # code = request.form['code']
-        # name = request.form['name']
         b_price = request.form['b_price']
         b_number = request.form['b_number']
         b_date = request.form['b_date']
         b_reason = request.form['b_reason']
-        status = 1
         
-        t_number = int(p_number) + int(b_number)
-        t_price = ((Decimal(p_price)*Decimal(p_number))+(Decimal(b_price)*Decimal(b_number)))/Decimal(t_number)
+        if b_price is not None:
+            b_price = Decimal(b_price)
+        else:
+            b_price = Decimal(0)
+        if b_number is not None:
+            b_number = Decimal(b_number)
+        else:
+            b_nuber = Decimal(0)
+        
+        t_number = p_number + b_number
+        t_price = ((p_price*p_number)+(b_price*b_number))/t_number
         if t_price is not None:
             t_price = format(t_price,',')
         else:
@@ -295,12 +318,36 @@ def add_buy():
 @app.route('/sell', methods=['POST'])
 def sell():
     id_number = request.args.get('arg0')
-    b_price = request.args.get('arg1')
-    c_number = request.args.get('arg2')
-    c_t_pl = request.args.get('arg3')
-    c_s_number = request.args.get('arg4')
-    c_s_price = request.args.get('arg5')
-       
+    # b_price = request.args.get('arg1')
+    # c_number = request.args.get('arg2')
+    # c_t_pl = request.args.get('arg3')
+    # c_s_number = request.args.get('arg4')
+    # c_s_price = request.args.get('arg5')
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()
+          
+    for row in data:
+        com0 = int(row[0])
+        com1 = int(id_number)
+        if com0 == com1:
+            if row[3] is not None:
+                b_price = Decimal(row[3])
+            else:
+                b_price = Decimal(0)
+            if row[4] is not None:
+                c_number = Decimal(row[4])
+            else:
+                c_number = Decimal(0)
+            if row[7] is not None:
+                c_s_price = Decimal(row[7])
+            else:
+                c_s_price = Decimal(0)
+            if row[8] is not None:
+                c_s_number = Decimal(row[8])
+            else:
+                c_s_number = Decimal(0)
+                      
     if request.method == 'POST':
         # code = request.form['code']
         # name = request.form['name']
@@ -309,20 +356,21 @@ def sell():
         s_date = request.form['s_date']
         s_reason = request.form['s_reason']
         
+        if sr_price is not None:
+            sr_price = Decimal(sr_price)
+        else:
+            sr_price = Decimal(0)
+        if sr_number is not None:
+            sr_number = Decimal(sr_number)
+        else:
+            sr_number = Decimal(0)
+        
         s_number = sr_number + c_s_number
-        sr_price_number = Decimal(sr_price) * Decimal(sr_number)
+        sr_price_number = sr_price * sr_number
         print(sr_price_number)
         print(c_s_price)
         print(c_s_number)
         
-        if c_s_price is not "None":
-            c_s_price = Decimal(c_s_price)
-        else:
-            c_s_price = Decimal('0')
-        if c_s_number is not "None":
-            c_s_number = Decimal(c_s_number)
-        else:
-            c_s_number = Decimal('0')
         c_s_price_number = c_s_price * c_s_number
 
         
@@ -334,9 +382,9 @@ def sell():
         else:
             status = 1
             
-        pl = (Decimal(sr_price)-Decimal(b_price))*Decimal(sr_number)
-        if c_t_pl is not None:
-            c_t_pl = Decimal(c_t_pl)
+        pl = (sr_price-b_price)*sr_number
+        if row[12] is not None:
+            c_t_pl = Decimal(row[12])
         else:
             c_t_pl = 0
             

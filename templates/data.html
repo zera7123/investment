@@ -14,7 +14,7 @@
 
         <hr><br>
         買い増し<br><br>
-        <form action="/add_buy?arg0={{ data[0] }}&arg1={{ data[3] }}&arg2={{ data[4] }}" method="post">
+        <form action="/add_buy?arg0={{ data[0] }}" method="post">
             <label for="code">銘柄コード:</label>
             <input type="text" name="code" value="{{ data[1] }}"><br><br> 
 
@@ -37,7 +37,7 @@
         </form>
         <hr><br>
         売却<br><br>
-        <form action="/sell?arg0={{ data[0] }}&arg1={{ data[3] }}&arg2={{ data[4] }}&arg3={{ data[14] }}&arg4={{ data[9] }}&arg5={{ data[8] }}" method="post">
+        <form action="/sell?arg0={{ data[0] }}" method="post">
             <label for="code">銘柄コード:</label>
             <input type="text" name="code" value="{{ data[1] }}"><br><br> 
 
