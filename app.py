@@ -78,8 +78,6 @@ def index():
             formatted_data.append(formatted_row)
     
     p_and_l_total_for = format(p_and_l_total,',') 
-    print(formatted_data)
-    print(p_and_l_total_for)  
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for)
 
@@ -187,8 +185,6 @@ def total():
     p_and_l_total_for = format(p_and_l_total,',')
     c_pl_total_for = format(c_pl_total,',')
     pl_and_c_pl_for =    format(pl_and_c_pl,',')
-    print(formatted_data)
-    print(p_and_l_total_for)
        
     
 
@@ -304,8 +300,11 @@ def add_buy():
         t_number = p_number + b_number
         t_price = ((p_price*p_number)+(b_price*b_number))/t_number
         print(p_price)
+        print(p_number)
         print(b_price)
+        print(b_number)
         print(t_price)
+        print(t_number)
         if t_price is not None:
             t_price = format(t_price,',')
         else:
@@ -372,9 +371,6 @@ def sell():
         
         s_number = sr_number + c_s_number
         sr_price_number = sr_price * sr_number
-        print(sr_price_number)
-        print(c_s_price)
-        print(c_s_number)
         
         c_s_price_number = c_s_price * c_s_number
 
