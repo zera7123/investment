@@ -311,7 +311,7 @@ def add_buy():
         status = 1
         
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s status = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, status, id_number))
+        cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s, status = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, status, id_number))
         mysql.connection.commit()
         cur.close()
             
