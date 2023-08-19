@@ -299,7 +299,7 @@ def add_buy():
         if b_number is not None:
             b_number = Decimal(b_number)
         else:
-            b_nuber = Decimal(0)
+            b_number = Decimal(0)
         
         t_number = p_number + b_number
         t_price = ((p_price*p_number)+(b_price*b_number))/t_number
@@ -308,8 +308,10 @@ def add_buy():
         else:
             t_price = 0
         
+        status = 1
+        
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, id_number))
+        cur.execute("UPDATE mytable SET b_price = %s, b_number = %s, b_date = %s, b_reason = %s status = %s  WHERE id = %s", (t_price, t_number, b_date, b_reason, status, id_number))
         mysql.connection.commit()
         cur.close()
             
