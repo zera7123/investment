@@ -5,11 +5,16 @@
                 メインページ
             </button>
         </a>
-        <a href="/delete?arg0={{ data[0] }}">
-            <button>
-                削除
-            </button>
-        </a><br><br>
+        <button onclick="deleteItem()">削除</button>
+                <script>
+                    function deleteItem() {
+                        if (confirm("削除しますか？")) {
+                            window.location.href = "/delete?arg0={{ data[0] }}";
+                        }
+                    }
+                </script>
+
+        <br><br>
 
         銘柄コード:{{ data[1] }}<br>
         銘柄名:{{ data[2] }}<br>
