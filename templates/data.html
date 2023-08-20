@@ -1,5 +1,16 @@
 <html>
     <body>
+        <a href="/">
+            <button>
+                メインページ
+            </button>
+        </a>
+        <a href="/delete?arg0={{ data[0] }}, arg1={{ data[2] }}" method="post">
+            <button>
+                削除
+            </button>
+        </a>
+
         銘柄コード:{{ data[1] }}<br>
         銘柄名:{{ data[2] }}<br>
         買値:{{ data[3] }}<br>

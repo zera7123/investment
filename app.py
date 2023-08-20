@@ -7,6 +7,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import re
 from decimal import Decimal
+import tkinter as tk
+from tkinter import messagebox
 
 app = Flask(__name__)
 
@@ -411,6 +413,27 @@ def result():
     #return render_template('result.html', stock_name=stock_name, data=df.to_html())
     return render_template('new.html', stock_name=stock_name, stock_code=stock_code, stock_price=stock_price, today=today)
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    id_number = request.args.get('arg0')
+    stock_name = request.args.get('arg1')
+    
+    root = tk.Tk()
+    root.withdraw()
+    
+    result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
+    
+    if result:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
+        mysql.connection.commit()
+        cur.close()        
+    
+    return redirect(url_for('index'))
+    
+
+
+
 def get_stock_name(stock_code):
     url = f'https://www.google.com/finance/quote/{stock_code}:TYO?hl=ja'
     page = requests.get(url)
@@ -433,6 +456,11 @@ def get_stock_price(stock_code):
     else:
         stock_price = 'None'
     return stock_price
+
+
+
+
+
 
 if __name__ == '__main__':
     
