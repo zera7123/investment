@@ -413,23 +413,21 @@ def result():
     #return render_template('result.html', stock_name=stock_name, data=df.to_html())
     return render_template('new.html', stock_name=stock_name, stock_code=stock_code, stock_price=stock_price, today=today)
 
-@app.route('/delete', methods=['POST'])
+@app.route('/delete')
 def delete():
-    if request.method == 'POST':
-        id_number = request.args.get('arg0')
-        stock_name = request.args.get('arg1')
-        
-        root = tk.Tk()
-        root.withdraw()
-        
-        result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
-        
-        if result:
-            cur = mysql.connection.cursor()
-            cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
-            mysql.connection.commit()
-            cur.close()        
+    id_number = request.args.get('arg0')
     
+    root = tk.Tk()
+    root.withdraw()
+    
+    result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
+    
+    if result:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
+        mysql.connection.commit()
+        cur.close()        
+
     return redirect(url_for('index'))
     
 
