@@ -413,13 +413,13 @@ def result():
 
 @app.route('/delete')
 def delete():
-    id_number = request.args.get('arg0')
+    id_number = int(request.args.get('arg0'))
 
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
     mysql.connection.commit()
     cur.close()        
-
+    
     return redirect(url_for('index'))
     
 
