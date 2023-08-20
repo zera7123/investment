@@ -7,8 +7,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import re
 from decimal import Decimal
-import tkinter as tk
-from tkinter import messagebox
 
 app = Flask(__name__)
 
@@ -416,17 +414,11 @@ def result():
 @app.route('/delete')
 def delete():
     id_number = request.args.get('arg0')
-    
-    root = tk.Tk()
-    root.withdraw()
-    
-    result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
-    
-    if result:
-        cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
-        mysql.connection.commit()
-        cur.close()        
+
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
+    mysql.connection.commit()
+    cur.close()        
 
     return redirect(url_for('index'))
     
