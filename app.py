@@ -347,6 +347,7 @@ def sell():
         # name = request.form['name']
         sr_price = request.form['s_price']
         sr_number = request.form['s_number']
+        s_com = request.form['s_com']
         s_date = request.form['s_date']
         s_reason = request.form['s_reason']
         
@@ -358,6 +359,10 @@ def sell():
             sr_number = Decimal(sr_number)
         else:
             sr_number = Decimal(0)
+        if s_com is not None:
+            s_com = Decimal(s_com)
+        else:
+            s_com = Decimal(0)
         
         s_number = sr_number + c_s_number
         sr_price_number = sr_price * sr_number
@@ -373,7 +378,7 @@ def sell():
         else:
             status = 1
             
-        pl = (sr_price-b_price)*sr_number
+        pl = (sr_price-b_price)*sr_number-s_com
         if row[12] is not None:
             c_t_pl = Decimal(row[12])
         else:
