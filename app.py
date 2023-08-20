@@ -303,12 +303,13 @@ def add_buy():
         print(p_number)
         print(b_price)
         print(b_number)
-        print(t_price)
-        print(t_number)
+
         if t_price is not None:
             t_price = format(t_price,',')
         else:
             t_price = 0
+        print(t_price)
+        print(t_number)
         
         status = 1
         
