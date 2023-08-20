@@ -415,19 +415,20 @@ def result():
 
 @app.route('/delete', methods=['POST'])
 def delete():
-    id_number = request.args.get('arg0')
-    stock_name = request.args.get('arg1')
-    
-    root = tk.Tk()
-    root.withdraw()
-    
-    result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
-    
-    if result:
-        cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
-        mysql.connection.commit()
-        cur.close()        
+    if request.method == 'POST':
+        id_number = request.args.get('arg0')
+        stock_name = request.args.get('arg1')
+        
+        root = tk.Tk()
+        root.withdraw()
+        
+        result = messagebox.askokcancel("%sのデータを削除します。",(stock_name))
+        
+        if result:
+            cur = mysql.connection.cursor()
+            cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
+            mysql.connection.commit()
+            cur.close()        
     
     return redirect(url_for('index'))
     
