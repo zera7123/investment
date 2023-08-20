@@ -417,7 +417,8 @@ def delete():
     print(id_number)
 
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM mytable WHERE id = %s", (id_number))
+    print("DELETE FROM mytable WHERE id = %s", (id_number))
+    cur.execute("DELETE FROM mytable WHERE id = %s;", (id_number))
     mysql.connection.commit()
     cur.close()        
     
