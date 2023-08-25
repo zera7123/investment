@@ -77,17 +77,19 @@ def index():
                     p_and_l_total += p_and_l
                     formatted_row.append(p_and_l_for)
                     per_pl = p_and_l / stock_b_price_number * 100
-                    formatted_row.append(per_pl)
+                    per_pl_r = round(per_pl,2)
+                    formatted_row.append(per_pl_r)
                     
                 else:
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
             formatted_data.append(formatted_row)
     per_pl_total = p_and_l_total / stock_b_price_total * 100
+    per_pl_total_r = round(per_pl_total,2)
     p_and_l_total_for = format(p_and_l_total,',') 
     stock_b_price_total_for = format(stock_b_price_total,',')
         
-    return render_template('index.html', data=formatted_data, data2=p_and_l_total_for, data3=stock_b_price_total_for, data4=per_pl_total)
+    return render_template('index.html', data=formatted_data, data2=p_and_l_total_for, data3=stock_b_price_total_for, data4=per_pl_total_r)
 
 @app.route('/c_price')
 def c_price():
