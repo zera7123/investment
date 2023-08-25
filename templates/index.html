@@ -16,8 +16,12 @@
             </button>
         </a>
         <br><br>
+        評価額合計：
+        {{ data3 }}
         評価損益合計：
         {{ data2 }}
+        評価損益割合：
+        {{ data4 }}%
         <br><br>
         <table border = 1>
             <tr>
@@ -48,6 +52,7 @@
                 <td>{{ row[11] }}</td>
                 <td>{{ row[14] }}</td>
                 <td>{{ row[15] }}</td>
+                <td>{{ row[16] }}%</td>
             </tr>
             {% endfor %}             
         </table>
