@@ -29,6 +29,7 @@ def index():
      # データを整形
     formatted_data = []
     p_and_l_total = 0
+    stock_b_price_total = 0
     for row in data:
         if row[13] == 1:
             formatted_row = []
