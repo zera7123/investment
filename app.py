@@ -36,7 +36,7 @@ def index():
             for i, x in enumerate(row):
                 if i == 3:
                     stock_b_price = row[3]
-                    stock_b_price_total += stock_b_price
+                    
                     if stock_b_price is not None:
                         stock_b_price_for = format(stock_b_price,',') 
                         formatted_row.append(stock_b_price_for)
@@ -71,18 +71,19 @@ def index():
                     else:
                         formatted_row.append(stock_price_number)
                     stock_b_price_number = stock_b_price * stock_number
+                    stock_b_price_total += stock_b_price_number
                     p_and_l = stock_price_number - stock_b_price_number
                     p_and_l_for = format(p_and_l,',')
                     p_and_l_total += p_and_l
                     formatted_row.append(p_and_l_for)
-                    per_pl = p_and_l / stock_b_price
+                    per_pl = p_and_l / stock_b_price_number * 100
                     formatted_row.append(per_pl)
                     
                 else:
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
             formatted_data.append(formatted_row)
-    per_pl_total = p_and_l_total / stock_b_price_total
+    per_pl_total = p_and_l_total / stock_b_price_total * 100
     p_and_l_total_for = format(p_and_l_total,',') 
     stock_b_price_total_for = format(stock_b_price_total,',')
         
