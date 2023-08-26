@@ -31,7 +31,7 @@ def index():
     p_and_l_total = 0
     stock_b_price_total = 0
     for row in data:
-        if row[13] == 1:
+        if row[14] == 1:
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 3:
@@ -98,7 +98,7 @@ def c_price():
     data = cur.fetchall()
     
     for row in data:
-        if row[13] == 1:
+        if row[14] == 1:
             for i, x in enumerate(row):
                 if i == 11:
                     current_id = row[0]
@@ -141,7 +141,7 @@ def total():
     p_and_l_total = 0
     c_pl_total = 0
     for row in data:
-        if row[13] == 0:
+        if row[14] == 0:
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 3:
@@ -172,7 +172,7 @@ def total():
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
             formatted_data.append(formatted_row)
-        elif row[13] == 1:
+        elif row[14] == 1:
             for i, x in enumerate(row):
                 if i == len(row) - 1:
                     c_stock_b_price = row[3]
@@ -424,10 +424,8 @@ def result():
 @app.route('/delete')
 def delete():
     id_number = request.args.get('arg0')
-    print(id_number)
 
     cur = mysql.connection.cursor()
-    print("DELETE FROM mytable WHERE id = %s"% (id_number,))
     cur.execute("DELETE FROM mytable WHERE id = %s"% (id_number,))
     mysql.connection.commit()
     cur.close()        
@@ -460,6 +458,15 @@ def get_stock_price(stock_code):
         stock_price = 'None'
     return stock_price
 
+def get_limit_price(b_price, c_price, per_pl):
+    if b_price <= c_price:
+        limit_price = b_price * 0.07
+    elif b_price > c_price:
+        if b_price*1.02 > c_price:
+            
+ #       else:
+            limit_price = b_price
+    return limit_price
 
 #自動データ取得
 def data_thread():
@@ -475,7 +482,7 @@ def data_thread():
         wait_time = (target_time - now).total_seconds()
         time.sleep(wait_time)
         for row in data:
-            if row[13] == 1:
+            if row[14] == 1:
                 for i, x in enumerate(row):
                     if i == 11:
                         current_id = row[0]
@@ -484,6 +491,7 @@ def data_thread():
                         cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
                         mysql.connection.commit()
                         cur.close()
+        print("update %s",(now))
         # データを処理するコードを記述します。
 
 
