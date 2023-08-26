@@ -79,6 +79,13 @@ def index():
                     per_pl = p_and_l / stock_b_price_number * 100
                     per_pl_r = round(per_pl,2)
                     formatted_row.append(per_pl_r)
+                    t_price = row[13]
+                    limit_price = get_limit_price(stock_b_price,stock_price,t_price)
+                    if limit_price is not None:
+                        limit_price_for = format(limit_price,',')
+                    else:
+                        limit_price_for = '0'
+                    formatted_data.append(limit_price_for)
                     
                 else:
                     # その他の列はそのまま表示
@@ -458,16 +465,40 @@ def get_stock_price(stock_code):
         stock_price = 'None'
     return stock_price
 
-def get_limit_price(b_price, c_price, per_pl):
+def get_limit_price(b_price, c_price, t_price):
     if b_price <= c_price:
-        limit_price = b_price * 0.07
+        limit_price = b_price * 0.7
     elif b_price > c_price:
-        if b_price*1.02 > c_price:
-            
+        if b_price*1.03 > c_price:
+            limit_price = t_price * 0.8
  #       else:
             limit_price = b_price
     return limit_price
 
+@app.route('/up_test')
+def up_test():
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()                                               
+    for row in data:
+        if row[14] == 1:
+            for i, x in enumerate(row):
+                if i == 11:
+                    current_id = row[0]
+                    current_p = get_stock_price(row[1])
+                    cur = mysql.connection.cursor()
+                    cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
+                    mysql.connection.commit()
+                    cur.close()
+                if i == 13:
+                    t_id = row[0]
+                    t_price = row[11]
+                    cur = mysql.connection.cursor()
+                    cur.execute("UPDATE mytable SET t_price = %s WHERE id = %s", (t_price,t_id))
+                    mysql.connection.commit()
+                    cur.close()
+    return redirect(url_for('index'))
+                    
 #自動データ取得
 def data_thread():
     cur = mysql.connection.cursor()
@@ -478,9 +509,9 @@ def data_thread():
         now = datetime.now()
         target_time = now.replace(hour=16, minute=0, second=0, microsecond=0)
         if now > target_time:
-            target_time += timedelta(days=1)    
+            target_time += timedelta(days=1)  
         wait_time = (target_time - now).total_seconds()
-        time.sleep(wait_time)
+        time.sleep(wait_time)                                               
         for row in data:
             if row[14] == 1:
                 for i, x in enumerate(row):
@@ -491,6 +522,14 @@ def data_thread():
                         cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
                         mysql.connection.commit()
                         cur.close()
+                    if i == 13:
+                        t_id = row[0]
+                        t_price = row[11]
+                        cur = mysql.connection.cursor()
+                        cur.execute("UPDATE mytable SET t_price = %s WHERE id = %s", (t_price,t_id))
+                        mysql.connection.commit()
+                        cur.close()
+                            
         print("update %s",(now))
         # データを処理するコードを記述します。
 
