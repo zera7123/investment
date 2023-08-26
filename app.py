@@ -35,7 +35,10 @@ def index():
             formatted_row = []
             for i, x in enumerate(row):
                 if i == 3:
-                    stock_b_price = row[3]
+                    if row[3] is not None:
+                        stock_b_price = Decimal(row[3])
+                    else:
+                        stock_b_price = Decimal('0')
                     
                     if stock_b_price is not None:
                         stock_b_price_for = format(stock_b_price,',') 
@@ -79,7 +82,10 @@ def index():
                     per_pl = p_and_l / stock_b_price_number * 100
                     per_pl_r = round(per_pl,2)
                     formatted_row.append(per_pl_r)
-                    t_price = row[13]
+                    if row[13] is not None:
+                        t_price = Decimal(row[13])
+                    else:
+                        t_price = Decimal('0')
                     limit_price = get_limit_price(stock_b_price,stock_price,t_price)
                     if limit_price is not None:
                         limit_price_for = format(limit_price,',')
