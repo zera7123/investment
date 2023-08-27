@@ -478,10 +478,10 @@ def get_stock_price(stock_code):
 
 def get_limit_price(b_price, c_price, t_price):
     if b_price <= c_price:
-        limit_price = b_price * Decimal('0.07')
+        limit_price = b_price * Decimal('0.97')
     elif b_price > c_price:
         if b_price * Decimal('1.03') > c_price:
-            limit_price = t_price * Decimal('0.08')
+            limit_price = t_price * Decimal('0.98')
         else:
             limit_price = b_price
     return limit_price
