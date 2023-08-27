@@ -90,7 +90,7 @@ def index():
                     limit_price = get_limit_price(stock_b_price,stock_price,t_price)
                     if limit_price is not None:
                         limit_price_for = format(limit_price,',')
-                        formatted_data.append(limit_price_for)
+                        formatted_row.append(limit_price_for)
                         print(limit_price_for)
                     else:
                         formatted_row.append(limit_price)
