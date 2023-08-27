@@ -33,6 +33,7 @@ def index():
     for row in data:
         if row[14] == 1:
             formatted_row = []
+            print('%s,%s',(row[1],row[14]))
             for i, x in enumerate(row):
                 if i == 3:
                     if row[3] is not None:
@@ -89,9 +90,11 @@ def index():
                     limit_price = get_limit_price(stock_b_price,stock_price,t_price)
                     if limit_price is not None:
                         limit_price_for = format(limit_price,',')
+                        formatted_data.append(limit_price_for)
+                        print(limit_price_for)
                     else:
-                        limit_price_for = '0'
-                    formatted_data.append(limit_price_for)
+                        formatted_row.append(limit_price)
+                        print(limit_price)
                     
                 else:
                     # その他の列はそのまま表示
