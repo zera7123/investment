@@ -482,7 +482,7 @@ def get_limit_price(b_price, c_price, t_price):
     elif b_price > c_price:
         if b_price * Decimal('1.03') > c_price:
             limit_price = t_price * Decimal('0.8')
- #       else:
+        else:
             limit_price = b_price
     return limit_price
 
