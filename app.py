@@ -99,7 +99,9 @@ def index():
                 else:
                     # その他の列はそのまま表示
                     formatted_row.append(str(x))
+            print(formatted_row)
             formatted_data.append(formatted_row)
+            print(formatted_data)
     per_pl_total = p_and_l_total / stock_b_price_total * 100
     per_pl_total_r = round(per_pl_total,2)
     p_and_l_total_for = format(p_and_l_total,',') 
