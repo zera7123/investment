@@ -33,7 +33,7 @@ def index():
     for row in data:
         if row[14] == 1:
             formatted_row = []
-            print('%s,%s',(row[1],row[14]))
+            print(row[0],row[2],row[14])
             for i, x in enumerate(row):
                 if i == 3:
                     if row[3] is not None:
