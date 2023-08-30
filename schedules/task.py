@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas_datareader as pdr
 from datetime import datetime, timedelta
 from datetime import date
-from flask_mysqldb import MySQL
+import MySQLdb
 import re
 from decimal import Decimal
 import time
@@ -12,16 +12,14 @@ import time
 config = {
     'host': 'zera7123.mysql.pythonanywhere-services.com',
     'user': 'zera7123',
-    'password': 'fcc9hEcUNB!5gRK',
+    'passwd': 'fcc9hEcUNB!5gRK',
     'db': 'zera7123$default'
 }
 
-mysql = MySQL()
-mysql.init_app(config)
-
 #自動データ取得
 def data_thread():
-    cur = mysql.connection.cursor()
+    conn = MySQLdb.connect(**config)
+    cur = conn.cursor()
     result = cur.execute("SELECT * FROM mytable")
     data = cur.fetchall()
     for row in data:
@@ -30,16 +28,16 @@ def data_thread():
                 if i == 11:
                     current_id = row[0]
                     current_p = get_stock_price(row[1])
-                    cur = mysql.connection.cursor()
+                    cur = conn.cursor()
                     cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
-                    mysql.connection.commit()
+                    conn.commit()
                     cur.close()
                 if i == 13:
                     t_id = row[0]
                     t_price = row[11]
-                    cur = mysql.connection.cursor()
+                    cur = conn.cursor()
                     cur.execute("UPDATE mytable SET t_price = %s WHERE id = %s", (t_price,t_id))
-                    mysql.connection.commit()
+                    conn.commit()
                     cur.close()
 
     print("update")
