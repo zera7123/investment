@@ -3,22 +3,21 @@ from bs4 import BeautifulSoup
 import pandas_datareader as pdr
 from datetime import datetime, timedelta
 from datetime import date
-from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import re
 from decimal import Decimal
 import time
-import threading
-
-app = Flask(__name__)
 
 # MySQLの設定
-app.config['MYSQL_HOST'] = 'zera7123.mysql.pythonanywhere-services.com'
-app.config['MYSQL_USER'] = 'zera7123'
-app.config['MYSQL_PASSWORD'] = 'fcc9hEcUNB!5gRK'
-app.config['MYSQL_DB'] = 'zera7123$default'
+config = {
+    'host': 'zera7123.mysql.pythonanywhere-services.com',
+    'user': 'zera7123',
+    'password': 'fcc9hEcUNB!5gRK',
+    'db': 'zera7123$default'
+}
 
-mysql = MySQL(app)
+mysql = MySQL()
+mysql.init_app(config)
 
 #自動データ取得
 def data_thread():
@@ -42,7 +41,7 @@ def data_thread():
                     cur.execute("UPDATE mytable SET t_price = %s WHERE id = %s", (t_price,t_id))
                     mysql.connection.commit()
                     cur.close()
-                            
+
     print("update")
         # データを処理するコードを記述します。
 def get_stock_price(stock_code):
@@ -57,8 +56,5 @@ def get_stock_price(stock_code):
         stock_price = 'None'
     return stock_price
 
-
 if __name__ == '__main__':
-    t = threading.Thread(target=data_thread)
-    t.start()
-    app.run(debug=True)
+    data_thread()
