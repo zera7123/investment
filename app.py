@@ -7,8 +7,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 import re
 from decimal import Decimal
-import time
-import threading
 
 app = Flask(__name__)
 
@@ -509,48 +507,6 @@ def up_test():
                     mysql.connection.commit()
                     cur.close()
     return redirect(url_for('index'))
-                    
-#自動データ取得
-def data_thread():
-    cur = mysql.connection.cursor()
-    result = cur.execute("SELECT * FROM mytable")
-    data = cur.fetchall()
-    
-    while True:
-        now = datetime.now()
-        target_time = now.replace(hour=16, minute=0, second=0, microsecond=0)
-        if now > target_time:
-            target_time += timedelta(days=1)  
-        wait_time = (target_time - now).total_seconds()
-        time.sleep(wait_time)                                               
-        for row in data:
-            if row[14] == 1:
-                for i, x in enumerate(row):
-                    if i == 11:
-                        current_id = row[0]
-                        current_p = get_stock_price(row[1])
-                        cur = mysql.connection.cursor()
-                        cur.execute("UPDATE mytable SET current_price = %s WHERE id = %s", (current_p,current_id))
-                        mysql.connection.commit()
-                        cur.close()
-                    if i == 13:
-                        t_id = row[0]
-                        t_price = row[11]
-                        cur = mysql.connection.cursor()
-                        cur.execute("UPDATE mytable SET t_price = %s WHERE id = %s", (t_price,t_id))
-                        mysql.connection.commit()
-                        cur.close()
-                            
-        print("update %s",(now))
-        # データを処理するコードを記述します。
-
-
-    
-
-
-
 
 if __name__ == '__main__':
-    t = threading.Thread(target=data_thread)
-    t.start()
     app.run(debug=True)
