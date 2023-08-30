@@ -61,4 +61,4 @@ def get_stock_price(stock_code):
 if __name__ == '__main__':
     t = threading.Thread(target=data_thread)
     t.start()
-    app.run()
+    app.run(debug=True)
