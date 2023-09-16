@@ -1,0 +1,61 @@
+<html>
+    <body>
+        <a href="/new">
+            <button>
+                新規
+            </button>
+        </a>
+        <a href="/now">
+            <button>
+                現在
+            </button>
+        </a>        
+        <a href="/total">
+            <button>
+                集計
+            </button>
+        </a>
+        <a href="/c_price">
+            <button>
+                現在価格更新
+            </button>
+        </a>
+        <a href="/up_test">
+            <button>
+                更新テスト
+            </button>
+        </a>
+        <br><br>
+        評価額合計：
+        {{ data3 }}
+        評価損益合計：
+        {{ data2 }}
+        評価損益割合：
+        {{ data4 }}%
+        <br><br>
+        <table border = 1>
+            <tr>
+                <th>銘柄コード</th>
+                <th>銘柄名</th>
+                <th>現在価格</th>
+                <th>指値</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>
+                    <a href = "/data?arg1={{ row[0] }}">
+                        {{ row[1] }}
+                    </a>
+                </td>
+                <td>
+                    <a href = "/data?arg1={{ row[0] }}">
+                        {{ row[2] }}
+                    </a>
+                </td>
+                <td>{{ row[11] }}</td>
+                <td>{{ row[18] }}</td>
+            </tr>
+            {% endfor %}             
+        </table>
+    </body>
+</html>
