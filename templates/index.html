@@ -38,8 +38,6 @@
                 <th>銘柄コード</th>
                 <th>銘柄名</th>
                 <th>現在価格</th>
-                <th>含み損益額</th>
-                <th>含み損益割合</th>
                 <th>指値</th>
             </tr>
             {% for row in data %}
@@ -55,8 +53,6 @@
                     </a>
                 </td>
                 <td>{{ row[11] }}</td>
-                <td>{{ row[16] }}</td>
-                <td>{{ row[17] }}%</td>
                 <td>{{ row[18] }}</td>
             </tr>
             {% endfor %}             
