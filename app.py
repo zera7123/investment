@@ -107,6 +107,97 @@ def index():
         
     return render_template('index.html', data=formatted_data, data2=p_and_l_total_for, data3=stock_b_price_total_for, data4=per_pl_total_r)
 
+
+
+@app.route('/now')
+def now():
+    cur = mysql.connection.cursor()
+    result = cur.execute("SELECT * FROM mytable")
+    data = cur.fetchall()
+        
+     # データを整形
+    formatted_data = []
+    p_and_l_total = 0
+    stock_b_price_total = 0
+    for row in data:
+        if row[14] == 1:
+            formatted_row = []
+            print(row[0],row[2],row[14])
+            for i, x in enumerate(row):
+                if i == 3:
+                    if row[3] is not None:
+                        stock_b_price = Decimal(row[3])
+                    else:
+                        stock_b_price = Decimal('0')
+                    
+                    if stock_b_price is not None:
+                        stock_b_price_for = format(stock_b_price,',') 
+                        formatted_row.append(stock_b_price_for)
+                    else:
+                        formatted_row.append(stock_b_price)
+                elif i == 4:
+                    stock_number = row[4]
+                    formatted_row.append(str(x))
+                elif i == 7:
+                    stock_s_price = row[7]
+                    if stock_s_price is not None:
+                        stock_s_price_for = format(stock_s_price,',') 
+                        formatted_row.append(stock_s_price_for)
+                    else:
+                        formatted_row.append(stock_s_price)
+                elif i == 11:
+                    if row[11] is not None:
+                        stock_price = Decimal(row[11])
+                    else:
+                        stock_price = Decimal('0')                    
+                    if stock_price is not None:
+                        stock_price_for = format(stock_price,',')
+                        formatted_row.append(stock_price_for)
+                    else:
+                        formatted_row.append(stock_price)
+                elif i == len(row) - 1:
+                    formatted_row.append(str(x))
+                    stock_price_number = stock_price * stock_number
+                    if stock_price_number is not None:
+                        stock_price_number_for = format(stock_price_number,',')
+                        formatted_row.append(stock_price_number_for)
+                    else:
+                        formatted_row.append(stock_price_number)
+                    stock_b_price_number = stock_b_price * stock_number
+                    stock_b_price_total += stock_b_price_number
+                    p_and_l = stock_price_number - stock_b_price_number
+                    p_and_l_for = format(p_and_l,',')
+                    p_and_l_total += p_and_l
+                    formatted_row.append(p_and_l_for)
+                    per_pl = p_and_l / stock_b_price_number * 100
+                    per_pl_r = round(per_pl,2)
+                    formatted_row.append(per_pl_r)
+                    if row[13] is not None:
+                        t_price = Decimal(row[13])
+                    else:
+                        t_price = Decimal('0')
+                    limit_price = get_limit_price(stock_b_price,stock_price,t_price)
+                    if limit_price is not None:
+                        limit_price_for = format(limit_price,',')
+                        formatted_row.append(limit_price_for)
+                        print(limit_price_for)
+                    else:
+                        formatted_row.append(limit_price)
+                        print(limit_price)
+                    
+                else:
+                    # その他の列はそのまま表示
+                    formatted_row.append(str(x))
+            print(formatted_row)
+            formatted_data.append(formatted_row)
+            print(formatted_data)
+    per_pl_total = p_and_l_total / stock_b_price_total * 100
+    per_pl_total_r = round(per_pl_total,2)
+    p_and_l_total_for = format(p_and_l_total,',') 
+    stock_b_price_total_for = format(stock_b_price_total,',')
+        
+    return render_template('now.html', data=formatted_data, data2=p_and_l_total_for, data3=stock_b_price_total_for, data4=per_pl_total_r)
+
 @app.route('/c_price')
 def c_price():
     cur = mysql.connection.cursor()

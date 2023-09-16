@@ -5,11 +5,11 @@
                 新規
             </button>
         </a>
-        <a href="/now">
+        <a href="/">
             <button>
-                現在
+                メインページ
             </button>
-        </a>        
+        </a>      
         <a href="/total">
             <button>
                 集計
@@ -18,11 +18,6 @@
         <a href="/c_price">
             <button>
                 現在価格更新
-            </button>
-        </a>
-        <a href="/up_test">
-            <button>
-                更新テスト
             </button>
         </a>
         <br><br>
@@ -37,7 +32,11 @@
             <tr>
                 <th>銘柄コード</th>
                 <th>銘柄名</th>
+                <th>平均買値</th>
+                <th>現在所持株数</th>
+                <th>最終購入日付</th>
                 <th>現在価格</th>
+                <th>評価額</th>
                 <th>含み損益額</th>
                 <th>含み損益割合</th>
                 <th>指値</th>
@@ -54,7 +53,11 @@
                         {{ row[2] }}
                     </a>
                 </td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
                 <td>{{ row[11] }}</td>
+                <td>{{ row[15] }}</td>
                 <td>{{ row[16] }}</td>
                 <td>{{ row[17] }}%</td>
                 <td>{{ row[18] }}</td>
