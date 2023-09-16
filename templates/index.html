@@ -40,6 +40,8 @@
         <script>
             function copyToClipboard(value) {
                 var textArea = document.createElement("textarea");
+                // カンマを削除
+                value = value.replace(/,/g, '');
                 textArea.value = value;
                 textArea.style.position = "fixed";
                 textArea.style.left = "-100%";
@@ -95,12 +97,14 @@
                 
                 <td data-column="現在価格">{{ row[11] }}</td> 
 
-                <td data-column="指値">{{ row[18] }}</td> 
+                <!-- カンマを削除 -->
+                <td data-column="指値">{{ row[18]|replace(",", "") }}</td>
 
-                <!-- コピー列の内容 -->
-                <td data-column="コピー"> 
-                    <!-- ボタンをクリックすると、指値が引数として関数に渡される -->
-                    <button onclick="copyToClipboard({{ row[18] }})">コピー</button> 
+                 <!-- コピー列の内容 -->
+                 <!-- ボタンをクリックすると、指値が引数として関数に渡される -->
+                 <!-- カンマを削除 -->
+                 <td data-column="コピー"> 
+                     <button onclick="copyToClipboard('{{ row[18]|replace(",", "") }}')">コピー</button> 
                  </td> 
              </tr> 
              {% endfor %}             
